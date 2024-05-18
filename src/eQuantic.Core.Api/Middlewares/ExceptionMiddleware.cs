@@ -60,7 +60,7 @@ public class ExceptionMiddleware : IMiddleware
             DependencyNotFoundException ex => new ExceptionResult(StatusCodes.Status404NotFound, ex.Message),
             ForbiddenAccessException ex => new ExceptionResult(StatusCodes.Status403Forbidden, ex.Message),
             InvalidEntityReferenceException ex => new ExceptionResult(StatusCodes.Status400BadRequest, ex.Message),
-            InvalidEntityRequestException ex => new ExceptionResult(StatusCodes.Status400BadRequest, ex.Message),
+            InvalidEntityRequestException ex => new ExceptionResult(StatusCodes.Status400BadRequest, ex.Message, ex.Errors),
             HttpRequestException ex => new ExceptionResult((int?)ex.StatusCode ?? StatusCodes.Status500InternalServerError, ex.Message),
             _ => new ExceptionResult(StatusCodes.Status500InternalServerError, exception.Message)
         };
@@ -96,9 +96,6 @@ public class ExceptionMiddleware : IMiddleware
     private ErrorResult CreateErrorResult(ExceptionResult result, Exception exception)
     {
         var details = _environment.IsDevelopment() ? exception.StackTrace : null;
-        
-        return result.Errors?.Any() == true ? 
-            new ValidationErrorResult(result.Message, details, result.Errors) : 
-            new ErrorResult(result.Message, details);
+        return new ErrorResult(result.Message, result.Errors, details);
     }
 }
