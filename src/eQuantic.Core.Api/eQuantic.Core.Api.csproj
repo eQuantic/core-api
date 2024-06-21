@@ -6,9 +6,9 @@
         <Authors>eQuantic Systems</Authors>
         <RootNamespace>eQuantic.Core.Api</RootNamespace>
         <AssemblyTitle>eQuantic.Core.Api</AssemblyTitle>
-        <AssemblyVersion>1.6.19.0</AssemblyVersion>
-        <FileVersion>1.6.19.0</FileVersion>
-        <Version>1.6.19.0</Version>
+        <AssemblyVersion>1.6.20.0</AssemblyVersion>
+        <FileVersion>1.6.20.0</FileVersion>
+        <Version>1.6.20.0</Version>
         <TargetFrameworks>net7.0;net8.0</TargetFrameworks>
 
         <PackageId>eQuantic.Core.Api</PackageId>
@@ -47,8 +47,17 @@
         <PackageReference Include="eQuantic.Core.Mvc" Version="2.0.3" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
         <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
+        
     </ItemGroup>
 
+    <ItemGroup Condition=" '$(TargetFramework)' == 'net7.0' ">
+        <PackageReference Include="System.CodeDom" Version="7.0.0" PrivateAssets="all" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
+        <PackageReference Include="System.CodeDom" Version="8.0.0" PrivateAssets="all" />
+    </ItemGroup>
+    
     <ItemGroup>
         <None Include="Icon.png" Pack="true" PackagePath="Icon.png" />
         <None Include="Icon_details.png" Pack="true" PackagePath="Icon_details.png" />
@@ -56,6 +65,10 @@
         <None Include="Icon_list.png" Pack="true" PackagePath="Icon_list.png" />
         <None Include="../../LICENSE" Pack="true" PackagePath="" />
         <None Include="../../README.md" Pack="true" PackagePath="" />
+        <None Update="Resources\SwaggerJson.tt">
+          <Generator>TextTemplatingFilePreprocessor</Generator>
+          <LastGenOutput>SwaggerJson.cs</LastGenOutput>
+        </None>
     </ItemGroup>
 
     <ItemGroup>
@@ -63,6 +76,7 @@
             <Generator>ResXFileCodeGenerator</Generator>
             <LastGenOutput>ApiResource.Designer.cs</LastGenOutput>
         </EmbeddedResource>
+        <None Remove="Resources\swagger.js" />
     </ItemGroup>
 
     <ItemGroup>
@@ -70,6 +84,14 @@
             <DesignTime>True</DesignTime>
             <AutoGen>True</AutoGen>
             <DependentUpon>ApiResource.resx</DependentUpon>
+        </Compile>
+        <Compile Update="Resources\SwaggerJson.cs">
+          <AutoGen>True</AutoGen>
+          <DesignTime>True</DesignTime>
+          <DependentUpon>SwaggerJson.tt</DependentUpon>
+        </Compile>
+        <Compile Update="Resources\SwaggerJson.partial.cs">
+          <DependentUpon>SwaggerJson.tt</DependentUpon>
         </Compile>
     </ItemGroup>
 </Project>

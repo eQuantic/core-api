@@ -1,7 +1,9 @@
 using eQuantic.Core.Api.Middlewares;
 using eQuantic.Core.Api.Modules;
 using eQuantic.Core.Api.Options;
+using eQuantic.Core.Api.Resources;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace eQuantic.Core.Api.Extensions;
@@ -21,10 +23,24 @@ public static class WebApplicationExtensions
     {
         var docOptions = new DocumentationOptions();
         options?.Invoke(docOptions);
+
+        var hasSignIn = !string.IsNullOrEmpty(docOptions.SignInUrl);
+        
+        if(hasSignIn)
+            app.MapGet("/swagger/swagger.js", () =>
+            {
+                var swaggerJson = new SwaggerJson(docOptions);
+                return Results.Text(swaggerJson.TransformText(), contentType: "application/json");
+            });
         
         app.UseSwagger();
         app.UseSwaggerUI(c =>
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", docOptions.Title));
+        {
+            c.SwaggerEndpoint("/swagger/v1/swagger.json", docOptions.Title);
+            
+            if(hasSignIn)
+                c.InjectJavascript("/swagger/swagger.js");
+        });
         return app;
     }
 

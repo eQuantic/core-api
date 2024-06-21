@@ -43,7 +43,7 @@ builder.Services
 var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
-    app.UseApiDocumentation();
+    app.UseApiDocumentation(opt => opt.WithSignIn("http://localhost:5153/login"));
 }
 
 app.UseHttpsRedirection();

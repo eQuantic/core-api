@@ -7,6 +7,8 @@ using eQuantic.Linq.Filter;
 using eQuantic.Linq.Sorter;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Swagger;
+using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace eQuantic.Core.Api.Extensions;
 
@@ -20,8 +22,12 @@ public static class ServiceCollectionExtensions
     /// </summary>
     /// <param name="services">The service collection</param>
     /// <param name="options">The documentation options</param>
+    /// <param name="swaggerGenOptions">The swagger gen options</param>
     /// <returns>The registry</returns>
-    public static IServiceCollection AddApiDocumentation(this IServiceCollection services, Action<DocumentationOptions>? options = null)
+    public static IServiceCollection AddApiDocumentation(
+        this IServiceCollection services, 
+        Action<DocumentationOptions>? options = null,
+        Action<SwaggerGenOptions>? swaggerGenOptions = null)
     {
         var docOptions = new DocumentationOptions();
         options?.Invoke(docOptions);
@@ -72,6 +78,8 @@ public static class ServiceCollectionExtensions
             c.OperationFilter<ExpressionOperationFilter<ISorting[]>>(ApiResource.SortingDescription);
             c.SchemaFilter<ExpressionSchemaFilter<IFiltering[]>>();
             c.SchemaFilter<ExpressionSchemaFilter<ISorting[]>>();
+
+            swaggerGenOptions?.Invoke(c);
         });
         return services;
     }
