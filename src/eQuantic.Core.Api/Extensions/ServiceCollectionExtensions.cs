@@ -31,7 +31,8 @@ public static class ServiceCollectionExtensions
     {
         var docOptions = new DocumentationOptions();
         options?.Invoke(docOptions);
-        
+
+        services.AddSingleton(docOptions);
         services.AddSwaggerGen(c =>
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = docOptions.Title, Version = "v1" });

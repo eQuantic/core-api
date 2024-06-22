@@ -2,7 +2,7 @@ using eQuantic.Core.Application.Entities.Data;
 using Humanizer;
 using Microsoft.EntityFrameworkCore;
 
-namespace eQuantic.Core.Persistence.Extensions;
+namespace eQuantic.Core.Persistence.SqlServer.Extensions;
 
 public static class ModelBuilderExtensions
 {

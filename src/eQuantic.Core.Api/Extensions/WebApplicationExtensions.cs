@@ -21,7 +21,7 @@ public static class WebApplicationExtensions
     /// <returns>The app</returns>
     public static WebApplication UseApiDocumentation(this WebApplication app, Action<DocumentationOptions>? options = null)
     {
-        var docOptions = new DocumentationOptions();
+        var docOptions = app.Services.GetService<DocumentationOptions>() ?? new DocumentationOptions();
         options?.Invoke(docOptions);
 
         var hasSignIn = !string.IsNullOrEmpty(docOptions.SignInUrl);

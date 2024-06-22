@@ -11,23 +11,6 @@ namespace eQuantic.Core.Persistence.Extensions;
 public static class EntityTypeBuilderExtensions
 {
     /// <summary>
-    /// Has the default primary key column name using the specified entity type builder
-    /// </summary>
-    /// <typeparam name="TEntity">The entity</typeparam>
-    /// <typeparam name="TProperty">The property</typeparam>
-    /// <param name="entityTypeBuilder">The entity type builder</param>
-    /// <param name="expression">The expression</param>
-    /// <returns>The entity type builder</returns>
-    public static EntityTypeBuilder<TEntity> HasDefaultPrimaryKeyColumnName<TEntity, TProperty>(
-        this EntityTypeBuilder<TEntity> entityTypeBuilder, 
-        Expression<Func<TEntity, TProperty>> expression) 
-        where TEntity : class
-    {
-        entityTypeBuilder.Property(expression).HasColumnName($"{typeof(TEntity).Name.TrimEnd("Data")}Id");
-        return entityTypeBuilder;
-    }
-    
-    /// <summary>
     /// Has JSON data
     /// </summary>
     /// <param name="builder"></param>
