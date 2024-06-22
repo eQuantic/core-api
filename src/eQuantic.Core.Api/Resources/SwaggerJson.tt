@@ -151,6 +151,10 @@
             if (isAuthorized(swagger))
                 return;
 
+<#
+    if (DocumentationOptions.HideEndpointsBeforeSignIn)
+    {
+#>
             //Remove elements different from information-container wrapper
             for (var i = 0; i < rootDiv.children.length; i++)
             {
@@ -158,7 +162,9 @@
                 if (child !== informationContainerDiv)
                     child.remove();
             }
-
+<#
+    }
+#>
             //Create UI di login
             createLoginUI(descriptionDiv);
             
@@ -172,9 +178,20 @@
         {
             var div = document.createElement("div");
             div.className = "login";
-
+<#
+    if (DocumentationOptions.HideEndpointsBeforeSignIn)
+    {
+#>
             rootDiv.appendChild(div);
-
+<#
+    }
+    else
+    {
+#>
+            rootDiv.insertBefore(div, rootDiv.children[0]);
+<#
+    }
+#>
             //UserName
             var userNameLabel = document.createElement("label");
             div.appendChild(userNameLabel);
@@ -242,9 +259,9 @@
                     if (xhr.status == 200 || xhr.status == 400)
                     {
                         var response = JSON.parse(xhr.responseText);
-                        if (!response.Result)
+                        if (!response.accessToken)
                         {
-                            alert(response.ErrorMessage);
+                            alert(response.errorMessage);
                             return;
                         }
 

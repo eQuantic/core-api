@@ -35,9 +35,10 @@ public class DocumentationOptions
         return this;
     }
 
-    public DocumentationOptions WithSignIn(string signInUrl)
+    public DocumentationOptions WithSignIn(string signInUrl, bool hideEndpointsBeforeSignIn = false)
     {
         SignInUrl = signInUrl;
+        HideEndpointsBeforeSignIn = hideEndpointsBeforeSignIn;
         return this;
     }
     
@@ -46,6 +47,7 @@ public class DocumentationOptions
     internal Assembly? Assembly { get; private set; }
     internal DocumentationAuthorizationOptions? AuthorizationOptions { get; private set; }
     internal string? SignInUrl { get; private set; }
+    internal bool HideEndpointsBeforeSignIn { get; private set; }
 }
 
 public class DocumentationAuthorizationOptions

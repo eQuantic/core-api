@@ -49,7 +49,9 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 app.MapControllers();
-app.MapGet("examples/{id}", GetById);
+app.MapGet("examples/{id}", GetById)
+    .WithTags("Example")
+    .Produces<Example>(StatusCodes.Status200OK);
 
 app.Run();
 
