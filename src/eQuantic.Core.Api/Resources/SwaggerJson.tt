@@ -92,7 +92,8 @@
         const handler = (caller, args) => 
         {
             const result = caller(args);
-            if (result.then) 
+
+            if (result && result.then) 
             {
                 result.then(() => reload())
             }
