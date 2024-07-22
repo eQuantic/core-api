@@ -1,4 +1,3 @@
-using System.Reflection;
 using eQuantic.Core.Api.Middlewares;
 using eQuantic.Core.Api.Options;
 using eQuantic.Core.Api.Resources;
@@ -7,7 +6,6 @@ using eQuantic.Linq.Filter;
 using eQuantic.Linq.Sorter;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.OpenApi.Models;
-using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace eQuantic.Core.Api.Extensions;
@@ -68,14 +66,11 @@ public static class ServiceCollectionExtensions
                 }
             });
 
-            var filteringDesc = string.Format(
-                ApiResource.FilteringDescription,
-                $"property:{string.Join("|", FilterOperatorValues.Values.Select(x => x.Value))}(value)",
-                $"{string.Join("|", CompositeOperatorValues.Values.Select(x => x.Value))}(property:eq(value1), property:eq(value2))");
+            
             
             c.MapType<IFiltering[]>(() => new OpenApiSchema());
             c.MapType<ISorting[]>(() => new OpenApiSchema());
-            c.OperationFilter<ExpressionOperationFilter<IFiltering[]>>(filteringDesc);
+            c.AddFilteringOperationFilter<IFiltering[]>();
             c.OperationFilter<ExpressionOperationFilter<ISorting[]>>(ApiResource.SortingDescription);
             c.SchemaFilter<ExpressionSchemaFilter<IFiltering[]>>();
             c.SchemaFilter<ExpressionSchemaFilter<ISorting[]>>();
@@ -83,6 +78,15 @@ public static class ServiceCollectionExtensions
             swaggerGenOptions?.Invoke(c);
         });
         return services;
+    }
+
+    public static void AddFilteringOperationFilter<TFiltering>(this SwaggerGenOptions options) where TFiltering : IEnumerable<IFiltering>
+    {
+        var filteringDesc = string.Format(
+            ApiResource.FilteringDescription,
+            $"property:{string.Join("|", FilterOperatorValues.Values.Select(x => x.Value))}(value)",
+            $"{string.Join("|", CompositeOperatorValues.Values.Select(x => x.Value))}(property:eq(value1), property:eq(value2))");
+        options.OperationFilter<ExpressionOperationFilter<TFiltering>>(filteringDesc);
     }
 
     /// <summary>
