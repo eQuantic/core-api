@@ -68,4 +68,17 @@ public class ApplicationContext : IApplicationContext<int>
         }
         return Task.FromResult(userId);
     }
+
+    public Task<string[]> GetCurrentUserRolesAsync()
+    {
+        var roles = _httpContextAccessor.HttpContext?.User
+            .FindAll(ClaimTypes.Role)
+            .ToList() ?? [];
+        return Task.FromResult( roles.Select(o => o.Value).ToArray());
+    }
+
+    public Task<bool> CurrentUserIsInRoleAsync(string role)
+    {
+        return Task.FromResult(_httpContextAccessor.HttpContext?.User.IsInRole(role) ?? false);
+    }
 }

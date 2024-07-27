@@ -35,4 +35,17 @@ public interface IApplicationContext<TUserKey>
     /// </summary>
     /// <returns></returns>
     Task<TUserKey> GetCurrentUserIdAsync();
+    
+    /// <summary>
+    /// Get current user roles
+    /// </summary>
+    /// <returns></returns>
+    Task<string[]> GetCurrentUserRolesAsync();
+
+    /// <summary>
+    /// Verify if current user is in role
+    /// </summary>
+    /// <param name="role">The role name</param>
+    /// <returns></returns>
+    Task<bool> CurrentUserIsInRoleAsync(string role);
 }
