@@ -10,7 +10,7 @@ public interface IEntityHistory<TUserKey> : IEntityTimeEnded
     /// <summary>
     /// Gets or sets the value of the deleted by id
     /// </summary>
-    Nullable<TUserKey> DeletedById { get; set; }
+    TUserKey? DeletedById { get; set; }
 }
 
 public interface IEntityHistory<TUser, TUserKey> : IEntityHistory<TUserKey>

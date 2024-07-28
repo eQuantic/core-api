@@ -10,7 +10,7 @@ public interface IEntityTrack<TUserKey> : IEntityTimeTrack
     /// <summary>
     /// Gets or sets the value of the updated by id
     /// </summary>
-    Nullable<TUserKey> UpdatedById { get; set; }
+    TUserKey? UpdatedById { get; set; }
 }
 
 public interface IEntityTrack<TUser, TUserKey> : IEntityTrack<TUserKey>

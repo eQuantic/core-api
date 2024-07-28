@@ -29,19 +29,24 @@ public class ItemRequest<TKey> : BasicRequest
 
 public class ItemRequest<TKey, TReferenceKey> : ItemRequest<TKey>, IReferencedRequest<TReferenceKey>
 {
-    /// <summary>
-    /// Gets or sets the value of the reference identifier
-    /// </summary>
-    [FromRoute]
-    public TReferenceKey? ReferenceId { get; set; }
+    private TReferenceKey? _referenceId;
 
     public ItemRequest()
     {
-        
     }
 
     public ItemRequest(TReferenceKey referenceId, TKey id) : base(id)
     {
-        ReferenceId = referenceId;
+        _referenceId = referenceId;
+    }
+    
+    public void SetReferenceId(TReferenceKey referenceId)
+    {
+        _referenceId = referenceId;
+    }
+
+    public TReferenceKey? GetReferenceId()
+    {
+        return _referenceId;
     }
 }

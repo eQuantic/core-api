@@ -17,7 +17,6 @@ public class CreateRequest<TBody> : BasicRequest
 
     public CreateRequest()
     {
-        
     }
 
     public CreateRequest(TBody body)
@@ -28,19 +27,24 @@ public class CreateRequest<TBody> : BasicRequest
 
 public class CreateRequest<TBody, TReferenceKey> : CreateRequest<TBody>, IReferencedRequest<TReferenceKey>
 {
-    /// <summary>
-    /// Gets or sets the value of the reference identifier
-    /// </summary>
-    [FromRoute]
-    public TReferenceKey? ReferenceId { get; set; }
+    private TReferenceKey? _referenceId;
     
     public CreateRequest()
     {
-        
     }
     
     public CreateRequest(TReferenceKey referenceId, TBody body) : base(body)
     {
-        ReferenceId = referenceId;
+        _referenceId = referenceId;
+    }
+
+    public void SetReferenceId(TReferenceKey referenceId)
+    {
+        _referenceId = referenceId;
+    }
+
+    public TReferenceKey? GetReferenceId()
+    {
+        return _referenceId;
     }
 }

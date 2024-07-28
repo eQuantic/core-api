@@ -31,19 +31,24 @@ public class UpdateRequest<TBody, TKey> : ItemRequest<TKey>
 
 public class UpdateRequest<TBody, TKey, TReferenceKey> : UpdateRequest<TBody, TKey>, IReferencedRequest<TReferenceKey>
 {
-    /// <summary>
-    /// Gets or sets the value of the reference identifier
-    /// </summary>
-    [FromRoute]
-    public TReferenceKey? ReferenceId { get; set; }
+    private TReferenceKey? _referenceId;
     
     public UpdateRequest()
     {
-        
     }
     
     public UpdateRequest(TReferenceKey referenceId, TKey id, TBody body) : base(id, body)
     {
-        ReferenceId = referenceId;
+        _referenceId = referenceId;
+    }
+    
+    public void SetReferenceId(TReferenceKey referenceId)
+    {
+        _referenceId = referenceId;
+    }
+
+    public TReferenceKey? GetReferenceId()
+    {
+        return _referenceId;
     }
 }

@@ -13,36 +13,36 @@ public class PagedListRequest<TEntity> : BasicRequest
     /// Gets or sets the value of the page index
     /// </summary>
     [FromQuery]
-    public int PageIndex { get; set; } = 1;
+    public int? PageIndex { get; set; }
     
     /// <summary>
     /// Gets or sets the value of the page size
     /// </summary>
     [FromQuery]
-    public int PageSize { get; set; } = 10;
+    public int? PageSize { get; set; }
     
     /// <summary>
     /// Gets or sets the value of the filtering
     /// </summary>
     [FromQuery]
-    public IFiltering[] Filtering { get; set; } = Array.Empty<IFiltering>();
+    public IFiltering[]? FilterBy { get; set; }
     
     /// <summary>
     /// Gets or sets the value of the sorting
     /// </summary>
     [FromQuery]
-    public ISorting[] Sorting { get; set; } = Array.Empty<ISorting>();
+    public ISorting[]? OrderBy { get; set; }
 
     public PagedListRequest()
     {
     }
 
-    public PagedListRequest(int? pageIndex, int? pageSize, IFiltering[]? filtering, ISorting[]? sorting)
+    public PagedListRequest(int? pageIndex, int? pageSize, IFiltering[]? filterBy, ISorting[]? orderBy)
     {
-        if (pageIndex.HasValue) PageIndex = pageIndex.Value;
-        if (pageSize.HasValue) PageSize = pageSize.Value;
-        if (filtering != null) Filtering = filtering;
-        if (sorting != null) Sorting = sorting;
+        if (pageIndex.HasValue) PageIndex = pageIndex;
+        if (pageSize.HasValue) PageSize = pageSize;
+        if (filterBy != null) FilterBy = filterBy;
+        if (orderBy != null) OrderBy = orderBy;
     }
 }
 
@@ -51,19 +51,25 @@ public class PagedListRequest<TEntity> : BasicRequest
 /// </summary>
 public class PagedListRequest<TEntity, TReferenceKey> : PagedListRequest<TEntity>, IReferencedRequest<TReferenceKey>
 {
-    /// <summary>
-    /// Gets or sets the value of the reference identifier
-    /// </summary>
-    [FromRoute]
-    public TReferenceKey? ReferenceId { get; set; }
+    private TReferenceKey? _referenceId;
 
     public PagedListRequest()
     {
-        
     }
+    
     public PagedListRequest(TReferenceKey referenceId, int? pageIndex, int? pageSize, IFiltering[]? filtering, ISorting[]? sorting)
         : base(pageIndex, pageSize, filtering, sorting)
     {
-        ReferenceId = referenceId;
+        _referenceId = referenceId;
+    }
+    
+    public void SetReferenceId(TReferenceKey referenceId)
+    {
+        _referenceId = referenceId;
+    }
+
+    public TReferenceKey? GetReferenceId()
+    {
+        return _referenceId;
     }
 }

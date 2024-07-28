@@ -11,7 +11,7 @@ public abstract class EntityHistoryDataBase<TUserKey>
     where TUserKey : struct
 {
     public DateTime? DeletedAt { get; set; }
-    public Nullable<TUserKey> DeletedById { get; set; }
+    public TUserKey? DeletedById { get; set; }
 }
 
 /// <summary>
@@ -25,7 +25,7 @@ public abstract class EntityHistoryDataBase<TUser, TUserKey>
     /// <summary>
     /// Gets or sets the value of the deleted by id
     /// </summary>
-    public Nullable<TUserKey> DeletedById { get; set; }
+    public TUserKey? DeletedById { get; set; }
     
     /// <summary>
     /// Gets or sets the value of the deleted by

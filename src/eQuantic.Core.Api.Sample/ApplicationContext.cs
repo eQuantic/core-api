@@ -4,32 +4,23 @@ using eQuantic.Core.Application;
 
 namespace eQuantic.Core.Api.Sample;
 
-public class ApplicationContext : IApplicationContext<int>
+public class ApplicationContext(IHttpContextAccessor httpContextAccessor) : IApplicationContext<int>
 {
-    private readonly IHttpContextAccessor _httpContextAccessor;
-
-    public ApplicationContext(IHttpContextAccessor httpContextAccessor)
-    {
-        _httpContextAccessor = httpContextAccessor;
-        LastUpdate = GetLastUpdate();
-        Version = GetVersion();
-    }
-    
     /// <summary>
     /// Gets the last update.
     /// </summary>
     /// <value>
     /// The last update.
     /// </value>
-    public DateTime LastUpdate { get; }
-    
+    public DateTime LastUpdate { get; } = GetLastUpdate();
+
     /// <summary>
     /// Gets the version.
     /// </summary>
     /// <value>
     /// The version.
     /// </value>
-    public string? Version { get; }
+    public string? Version { get; } = GetVersion();
 
     /// <summary>
     /// Gets the local path.
@@ -60,7 +51,7 @@ public class ApplicationContext : IApplicationContext<int>
     }
     public Task<int> GetCurrentUserIdAsync()
     {
-        var userIdStr = _httpContextAccessor.HttpContext?.User
+        var userIdStr = httpContextAccessor.HttpContext?.User
             .FindFirstValue(ClaimTypes.NameIdentifier);
         if (string.IsNullOrEmpty(userIdStr) || !int.TryParse(userIdStr, out var userId))
         {
@@ -71,7 +62,7 @@ public class ApplicationContext : IApplicationContext<int>
 
     public Task<string[]> GetCurrentUserRolesAsync()
     {
-        var roles = _httpContextAccessor.HttpContext?.User
+        var roles = httpContextAccessor.HttpContext?.User
             .FindAll(ClaimTypes.Role)
             .ToList() ?? [];
         return Task.FromResult( roles.Select(o => o.Value).ToArray());
@@ -79,6 +70,6 @@ public class ApplicationContext : IApplicationContext<int>
 
     public Task<bool> CurrentUserIsInRoleAsync(string role)
     {
-        return Task.FromResult(_httpContextAccessor.HttpContext?.User.IsInRole(role) ?? false);
+        return Task.FromResult(httpContextAccessor.HttpContext?.User.IsInRole(role) ?? false);
     }
 }
