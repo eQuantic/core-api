@@ -25,7 +25,7 @@ public class PagedListRequest<TEntity> : BasicRequest
     /// Gets or sets the value of the filtering
     /// </summary>
     [FromQuery]
-    public IFiltering[]? FilterBy { get; set; }
+    public FilteringCollection? FilterBy { get; set; }
     
     /// <summary>
     /// Gets or sets the value of the sorting
@@ -41,7 +41,7 @@ public class PagedListRequest<TEntity> : BasicRequest
     {
         if (pageIndex.HasValue) PageIndex = pageIndex;
         if (pageSize.HasValue) PageSize = pageSize;
-        if (filterBy != null) FilterBy = filterBy;
+        if (filterBy != null) FilterBy = new FilteringCollection(filterBy);
         if (orderBy != null) OrderBy = orderBy;
     }
 }
