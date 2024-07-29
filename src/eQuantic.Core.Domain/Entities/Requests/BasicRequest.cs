@@ -11,17 +11,17 @@ public class BasicRequest
 
     internal object? GetReferenceValue()
     {
-        return GetReferenceProperty()?.GetValue(this);
+        return GetReferenceMethod()?.Invoke(this, null);
     }
 
     internal Type? GetReferenceType()
     {
-        return GetReferenceProperty()?.PropertyType;
+        return GetReferenceMethod()?.ReturnType;
     }
 
-    private PropertyInfo? GetReferenceProperty()
+    private MethodInfo? GetReferenceMethod()
     {
-        return IsReferencedRequest() ? GetType().GetProperty("ReferenceId") : null;
+        return IsReferencedRequest() ? GetType().GetMethod("GetReferenceId") : null;
     }
     
     internal static bool IsReferencedRequest(BasicRequest request)
@@ -31,11 +31,11 @@ public class BasicRequest
 
     internal static object? GetReferenceValue(BasicRequest request)
     {
-        return request.GetReferenceProperty()?.GetValue(request);
+        return request.GetReferenceMethod()?.Invoke(request, null);
     }
 
     internal static Type? GetReferenceType(BasicRequest request)
     {
-        return request.GetReferenceProperty()?.PropertyType;
+        return request.GetReferenceMethod()?.ReturnType;
     }
 }

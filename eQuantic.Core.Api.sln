@@ -47,6 +47,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eQuantic.Core.Persistence.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eQuantic.Core.Persistence.MongoDb", "src\eQuantic.Core.Persistence.MongoDb\eQuantic.Core.Persistence.MongoDb.csproj", "{81C7CA1F-9B5C-4BA6-8B7B-0FDA1CD7E839}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C3BBD073-AE95-4FFA-86F8-971912BFE4E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eQuantic.Core.Domain.Tests", "tests\eQuantic.Core.Domain.Tests\eQuantic.Core.Domain.Tests.csproj", "{69019671-782A-44FD-B581-376A9B046F44}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -93,6 +97,10 @@ Global
 		{81C7CA1F-9B5C-4BA6-8B7B-0FDA1CD7E839}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{81C7CA1F-9B5C-4BA6-8B7B-0FDA1CD7E839}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{81C7CA1F-9B5C-4BA6-8B7B-0FDA1CD7E839}.Release|Any CPU.Build.0 = Release|Any CPU
+		{69019671-782A-44FD-B581-376A9B046F44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{69019671-782A-44FD-B581-376A9B046F44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{69019671-782A-44FD-B581-376A9B046F44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{69019671-782A-44FD-B581-376A9B046F44}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3080CE4F-8079-4FB6-B164-46A5CE130E87} = {ECE438C5-64A5-4F54-BCC3-496F2C131090}
@@ -111,5 +119,6 @@ Global
 		{E42A86D6-9ABA-4DD6-AB68-50C4658E235D} = {3D501159-790F-4907-8C53-37B05615251F}
 		{185A6D22-F587-4AF3-88C7-18CA7FF088DE} = {8EE836BD-C317-4C26-AE01-E0539FFB2138}
 		{81C7CA1F-9B5C-4BA6-8B7B-0FDA1CD7E839} = {8EE836BD-C317-4C26-AE01-E0539FFB2138}
+		{69019671-782A-44FD-B581-376A9B046F44} = {C3BBD073-AE95-4FFA-86F8-971912BFE4E1}
 	EndGlobalSection
 EndGlobal
