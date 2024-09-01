@@ -1,6 +1,6 @@
 using eQuantic.Core.Collections;
 
-namespace eQuantic.Core.Application.Entities.Results;
+namespace eQuantic.Core.Domain.Entities.Results;
 
 /// <summary>
 /// Paged List Result
