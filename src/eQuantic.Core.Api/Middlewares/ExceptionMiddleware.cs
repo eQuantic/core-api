@@ -96,6 +96,6 @@ public class ExceptionMiddleware : IMiddleware
     private ErrorResult CreateErrorResult(ExceptionResult result, Exception exception)
     {
         var details = _environment.IsDevelopment() ? exception.StackTrace : null;
-        return new ErrorResult(result.Message, result.Errors, details);
+        return new ErrorResult(exception.GetType().Name, result.Message, result.Errors, details);
     }
 }
