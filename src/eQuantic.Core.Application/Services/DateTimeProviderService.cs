@@ -2,12 +2,12 @@
 
 namespace eQuantic.Core.Application.Services;
 
-public class DataTimeProviderService : IDateTimeProviderService
+public class DateTimeProviderService : IDateTimeProviderService
 {
 #if NET8_0
      private readonly TimeProvider _timeProvider;
 
-     public DataTimeProviderService(TimeProvider timeProvider)
+     public DateTimeProviderService(TimeProvider timeProvider)
      {
           _timeProvider = timeProvider;
      }
