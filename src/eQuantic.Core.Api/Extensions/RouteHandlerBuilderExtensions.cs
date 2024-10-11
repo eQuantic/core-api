@@ -1,3 +1,4 @@
+#if NET7_0_OR_GREATER
 using eQuantic.Core.Application.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
@@ -17,3 +18,4 @@ public static class RouteHandlerBuilderExtensions
         endpoint.AddEndpointFilter<TFilterType>();
     }
 }
+#endif
