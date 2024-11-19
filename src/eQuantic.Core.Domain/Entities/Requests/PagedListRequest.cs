@@ -33,16 +33,28 @@ public class PagedListRequest<TEntity> : BasicRequest
     [FromQuery]
     public ISorting[]? OrderBy { get; set; }
 
+    /// <summary>
+    /// Gets or sets the include fields
+    /// </summary>
+    [FromQuery]
+    public string[]? IncludeFields { get; set; }
+    
     public PagedListRequest()
     {
     }
 
-    public PagedListRequest(int? pageIndex, int? pageSize, IFiltering[]? filterBy, ISorting[]? orderBy)
+    public PagedListRequest(
+        int? pageIndex, 
+        int? pageSize, 
+        IFiltering[]? filterBy, 
+        ISorting[]? orderBy, 
+        string[]? includeFields = null)
     {
         if (pageIndex.HasValue) PageIndex = pageIndex;
         if (pageSize.HasValue) PageSize = pageSize;
         if (filterBy != null) FilterBy = new FilteringCollection(filterBy);
         if (orderBy != null) OrderBy = orderBy;
+        if (includeFields != null) IncludeFields = includeFields;
     }
 }
 
@@ -57,8 +69,14 @@ public class PagedListRequest<TEntity, TReferenceKey> : PagedListRequest<TEntity
     {
     }
     
-    public PagedListRequest(TReferenceKey referenceId, int? pageIndex, int? pageSize, IFiltering[]? filtering, ISorting[]? sorting)
-        : base(pageIndex, pageSize, filtering, sorting)
+    public PagedListRequest(
+        TReferenceKey referenceId, 
+        int? pageIndex, 
+        int? pageSize, 
+        IFiltering[]? filtering, 
+        ISorting[]? sorting, 
+        string[]? includeFields = null)
+        : base(pageIndex, pageSize, filtering, sorting, includeFields)
     {
         _referenceId = referenceId;
     }
