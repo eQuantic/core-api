@@ -6,7 +6,7 @@ public class BasicRequest
 {
     internal bool IsReferencedRequest()
     {
-        return GetType().GetInterfaces().Any(o => o.GetGenericTypeDefinition() == typeof(IReferencedRequest<>));
+        return IsReferencedRequest(this);
     }
 
     internal object? GetReferenceValue()
@@ -26,7 +26,7 @@ public class BasicRequest
     
     internal static bool IsReferencedRequest(BasicRequest request)
     {
-        return request.GetType().GetInterfaces().Any(o => o.GetGenericTypeDefinition() == typeof(IReferencedRequest<>));
+        return request.GetType().GetInterfaces().Any(o => o.IsGenericType && o.GetGenericTypeDefinition() == typeof(IReferencedRequest<>));
     }
 
     internal static object? GetReferenceValue(BasicRequest request)
