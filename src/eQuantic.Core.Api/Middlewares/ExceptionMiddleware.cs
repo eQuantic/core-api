@@ -83,7 +83,7 @@ public class ExceptionMiddleware : IMiddleware
         
         foreach (var (type, opt) in options)
         {
-            if(!(exceptionType == type || type.IsSubclassOf(exceptionType)))
+            if(!(exceptionType == type || (exceptionType != typeof(Exception) && type.IsSubclassOf(exceptionType))))
                 continue;
 
             opt.SetResult(exception);
