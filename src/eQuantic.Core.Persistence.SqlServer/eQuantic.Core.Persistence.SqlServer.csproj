@@ -6,9 +6,9 @@
         <Authors>eQuantic Systems</Authors>
         <RootNamespace>eQuantic.Core.Persistence.SqlServer</RootNamespace>
         <AssemblyTitle>eQuantic.Core.Persistence.SqlServer</AssemblyTitle>
-        <AssemblyVersion>1.7.14.0</AssemblyVersion>
-        <FileVersion>1.7.14.0</FileVersion>
-        <Version>1.7.14.0</Version>
+        <AssemblyVersion>1.7.15.0</AssemblyVersion>
+        <FileVersion>1.7.15.0</FileVersion>
+        <Version>1.7.15.0</Version>
         <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
 
         <PackageId>eQuantic.Core.Persistence.SqlServer</PackageId>
@@ -52,6 +52,6 @@
         <PackageReference Include="eQuantic.Core.Data.EntityFramework.SqlServer" Version="6.0.5" />
     </ItemGroup>
     <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
-        <PackageReference Include="eQuantic.Core.Data.EntityFramework.SqlServer" Version="8.0.5" />
+        <PackageReference Include="eQuantic.Core.Data.EntityFramework.SqlServer" Version="8.0.6" />
     </ItemGroup>
 </Project>
