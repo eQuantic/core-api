@@ -6,9 +6,9 @@
         <Authors>eQuantic Systems</Authors>
         <RootNamespace>eQuantic.Core.Persistence.MongoDb</RootNamespace>
         <AssemblyTitle>eQuantic.Core.Persistence.MongoDb</AssemblyTitle>
-        <AssemblyVersion>1.7.18.0</AssemblyVersion>
-        <FileVersion>1.7.18.0</FileVersion>
-        <Version>1.7.18.0</Version>
+        <AssemblyVersion>1.7.19.0</AssemblyVersion>
+        <FileVersion>1.7.19.0</FileVersion>
+        <Version>1.7.19.0</Version>
         <TargetFramework>net8.0</TargetFramework>
 
         <PackageId>eQuantic.Core.Persistence.MongoDb</PackageId>
