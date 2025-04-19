@@ -6,10 +6,10 @@
         <Authors>eQuantic Systems</Authors>
         <RootNamespace>eQuantic.Core.Domain</RootNamespace>
         <AssemblyTitle>eQuantic.Core.Domain</AssemblyTitle>
-        <AssemblyVersion>1.7.21.0</AssemblyVersion>
-        <FileVersion>1.7.21.0</FileVersion>
-        <Version>1.7.21.0</Version>
-        <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+        <AssemblyVersion>1.7.22.0</AssemblyVersion>
+        <FileVersion>1.7.22.0</FileVersion>
+        <Version>1.7.22.0</Version>
+        <TargetFrameworks>net6.0;net8.0;net9.0</TargetFrameworks>
 
         <PackageId>eQuantic.Core.Domain</PackageId>
         <PackageTags>eQuantic;Core;Domain;Library</PackageTags>
