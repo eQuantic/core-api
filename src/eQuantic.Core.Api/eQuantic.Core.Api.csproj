@@ -6,9 +6,9 @@
         <Authors>eQuantic Systems</Authors>
         <RootNamespace>eQuantic.Core.Api</RootNamespace>
         <AssemblyTitle>eQuantic.Core.Api</AssemblyTitle>
-        <AssemblyVersion>1.7.20.0</AssemblyVersion>
-        <FileVersion>1.7.20.0</FileVersion>
-        <Version>1.7.20.0</Version>
+        <AssemblyVersion>1.7.21.0</AssemblyVersion>
+        <FileVersion>1.7.21.0</FileVersion>
+        <Version>1.7.21.0</Version>
         <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
 
         <PackageId>eQuantic.Core.Api</PackageId>
@@ -45,8 +45,8 @@
     
     <ItemGroup>
         <PackageReference Include="eQuantic.Core.Mvc" Version="2.0.7" />
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="7.3.0" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="7.3.0" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.1" />
         
     </ItemGroup>
 
