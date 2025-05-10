@@ -53,6 +53,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eQuantic.Core.Domain.Tests"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eQuantic.Core.Api.Tests", "tests\eQuantic.Core.Api.Tests\eQuantic.Core.Api.Tests.csproj", "{5A077479-1464-4678-B6F6-C67EFA3A4553}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eQuantic.Core.Persistence.MySql", "src\eQuantic.Core.Persistence.MySql\eQuantic.Core.Persistence.MySql.csproj", "{25F3AD6A-7FE5-4C7C-91B9-F90791DB34A3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,6 +109,10 @@ Global
 		{5A077479-1464-4678-B6F6-C67EFA3A4553}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A077479-1464-4678-B6F6-C67EFA3A4553}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A077479-1464-4678-B6F6-C67EFA3A4553}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25F3AD6A-7FE5-4C7C-91B9-F90791DB34A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25F3AD6A-7FE5-4C7C-91B9-F90791DB34A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25F3AD6A-7FE5-4C7C-91B9-F90791DB34A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25F3AD6A-7FE5-4C7C-91B9-F90791DB34A3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3080CE4F-8079-4FB6-B164-46A5CE130E87} = {ECE438C5-64A5-4F54-BCC3-496F2C131090}
@@ -127,5 +133,6 @@ Global
 		{81C7CA1F-9B5C-4BA6-8B7B-0FDA1CD7E839} = {8EE836BD-C317-4C26-AE01-E0539FFB2138}
 		{69019671-782A-44FD-B581-376A9B046F44} = {C3BBD073-AE95-4FFA-86F8-971912BFE4E1}
 		{5A077479-1464-4678-B6F6-C67EFA3A4553} = {C3BBD073-AE95-4FFA-86F8-971912BFE4E1}
+		{25F3AD6A-7FE5-4C7C-91B9-F90791DB34A3} = {8EE836BD-C317-4C26-AE01-E0539FFB2138}
 	EndGlobalSection
 EndGlobal
