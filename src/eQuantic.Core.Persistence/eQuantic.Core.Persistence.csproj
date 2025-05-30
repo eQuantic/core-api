@@ -6,10 +6,10 @@
         <Authors>eQuantic Systems</Authors>
         <RootNamespace>eQuantic.Core.Persistence</RootNamespace>
         <AssemblyTitle>eQuantic.Core.Persistence</AssemblyTitle>
-        <AssemblyVersion>1.7.20.0</AssemblyVersion>
-        <FileVersion>1.7.20.0</FileVersion>
-        <Version>1.7.20.0</Version>
-        <TargetFrameworks>net6.0;net8.0</TargetFrameworks>
+        <AssemblyVersion>1.7.23.0</AssemblyVersion>
+        <FileVersion>1.7.23.0</FileVersion>
+        <Version>1.7.23.0</Version>
+        <TargetFrameworks>net6.0;net8.0;net9.0</TargetFrameworks>
 
         <PackageId>eQuantic.Core.Persistence</PackageId>
         <PackageTags>eQuantic;Core;Persistence;Library</PackageTags>
@@ -57,7 +57,9 @@
         <PackageReference Include="eQuantic.Core.Data.EntityFramework" Version="6.0.8" />
     </ItemGroup>
     <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
-        <PackageReference Include="eQuantic.Core.Data.EntityFramework" Version="8.0.9" />
+        <PackageReference Include="eQuantic.Core.Data.EntityFramework" Version="8.0.10" />
     </ItemGroup>
-
+    <ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
+        <PackageReference Include="eQuantic.Core.Data.EntityFramework" Version="9.0.0" />
+    </ItemGroup>
 </Project>
