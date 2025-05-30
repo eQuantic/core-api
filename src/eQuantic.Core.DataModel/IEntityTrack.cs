@@ -1,3 +1,5 @@
+using eQuantic.Core.Domain.Entities;
+
 namespace eQuantic.Core.Application.Entities.Data;
 
 public interface IEntityTrack : IEntityTrack<int>

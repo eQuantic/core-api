@@ -1,4 +1,4 @@
-namespace eQuantic.Core.Application.Entities.Data;
+namespace eQuantic.Core.Domain.Entities;
 
 public interface IEntityTimeMark
 {
