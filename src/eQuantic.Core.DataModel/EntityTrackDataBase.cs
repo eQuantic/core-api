@@ -1,6 +1,4 @@
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace eQuantic.Core.Application.Entities.Data;
+namespace eQuantic.Core.DataModel;
 
 public abstract class EntityTrackDataBase : EntityTrackDataBase<int>, IEntityTrack
 {

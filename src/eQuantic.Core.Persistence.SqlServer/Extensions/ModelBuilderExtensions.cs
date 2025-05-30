@@ -1,4 +1,4 @@
-using eQuantic.Core.Application.Entities.Data;
+using eQuantic.Core.DataModel;
 using Humanizer;
 using Microsoft.EntityFrameworkCore;
 

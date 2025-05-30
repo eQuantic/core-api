@@ -1,6 +1,4 @@
 <#@ template language="C#" #>
-<#@ import namespace="System.Text" #>
-<#@ import namespace="System.Collections.Generic" #>
 <#
     var description = DocumentationOptions.AuthorizationOptions?.Description ?? "Please enter into field the word 'Bearer' following by space and JWT";
 #>

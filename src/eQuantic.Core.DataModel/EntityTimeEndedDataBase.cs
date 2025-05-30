@@ -1,6 +1,6 @@
 using eQuantic.Core.Domain.Entities;
 
-namespace eQuantic.Core.Application.Entities.Data;
+namespace eQuantic.Core.DataModel;
 
 public abstract class EntityTimeEndedDataBase : EntityTimeTrackDataBase, IEntityTimeEnded
 {

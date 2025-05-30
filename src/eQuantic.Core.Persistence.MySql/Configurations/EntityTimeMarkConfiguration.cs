@@ -1,4 +1,4 @@
-using eQuantic.Core.Application.Entities.Data;
+using eQuantic.Core.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 

@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using eQuantic.Core.Data.Repository;
 
-namespace eQuantic.Core.Application.Entities.Data;
+namespace eQuantic.Core.DataModel;
 
 public abstract class EntityDataBase : EntityDataBase<int>
 {
