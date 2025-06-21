@@ -20,6 +20,6 @@ public class EntityTimeMarkConfiguration<TEntity> : eQuantic.Core.Persistence.Co
         base.Configure(builder);
         
         builder.Property(x => x.CreatedAt)
-            .HasDefaultValueSql("UTC_DATE()");
+            .HasDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
     }
 }
