@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(dotnet test:*)",
+      "Bash(/home/edgar/dotnet test /mnt/c/projects/equantic/github/core-api/tests/eQuantic.Core.Persistence.Tests/eQuantic.Core.Persistence.Tests.csproj)",
+      "Bash(/home/edgar/dotnet test /mnt/c/projects/equantic/github/core-api/tests/eQuantic.Core.Persistence.Relational.Tests/eQuantic.Core.Persistence.Relational.Tests.csproj)",
+      "Bash(/home/edgar/dotnet test /mnt/c/projects/equantic/github/core-api/tests/eQuantic.Core.Persistence.PostgreSql.Tests/eQuantic.Core.Persistence.PostgreSql.Tests.csproj)",
+      "Bash(find:*)",
+      "Bash(/home/edgar/.dotnet/dotnet test /mnt/c/projects/equantic/github/core-api/tests/eQuantic.Core.Persistence.Tests/eQuantic.Core.Persistence.Tests.csproj)",
+      "Bash(/home/edgar/.dotnet/dotnet test /mnt/c/projects/equantic/github/core-api/tests/eQuantic.Core.Persistence.Relational.Tests/eQuantic.Core.Persistence.Relational.Tests.csproj)",
+      "Bash(/home/edgar/.dotnet/dotnet test /mnt/c/projects/equantic/github/core-api/tests/eQuantic.Core.Persistence.PostgreSql.Tests/eQuantic.Core.Persistence.PostgreSql.Tests.csproj)",
+      "Bash(/home/edgar/.dotnet/dotnet --version)",
+      "Bash(/home/edgar/.dotnet/dotnet build /mnt/c/projects/equantic/github/core-api/tests/eQuantic.Core.Persistence.Tests/eQuantic.Core.Persistence.Tests.csproj --no-restore)"
+    ],
+    "deny": []
+  }
+}

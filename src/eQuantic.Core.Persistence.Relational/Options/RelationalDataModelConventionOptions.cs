@@ -8,28 +8,49 @@ public class RelationalDataModelConventionOptions : DataModelConventionOptions
     internal bool? FullyQualifiedPrimaryKeysEnabled { get; private set; }
     internal string? Suffix { get; private set; }
 
-    public RelationalDataModelConventionOptions()
+    internal void CopyTo(RelationalDataModelConventionOptions opt)
     {
-    }
-
-    public RelationalDataModelConventionOptions(DataModelConventionOptions options)
-    {
-        if(options.EntityAuditingEnabled.HasValue)
-            EnableEntityAuditing(options.EntityAuditingEnabled.Value);
-    }
-    public RelationalDataModelConventionOptions(RelationalDataModelConventionOptions options)
-    {
-        if(options.EntityAuditingEnabled.HasValue)
-            EnableEntityAuditing(options.EntityAuditingEnabled.Value);
+        if (EntityAuditingEnabled.HasValue)
+            opt.EnableEntityAuditing(EntityAuditingEnabled.Value);
+            
+        if (NamingCase.HasValue)
+        {
+            opt.UseNamingCase(NamingCase.Value);
+        }
         
-        NamingCase = options.NamingCase;
-        FullyQualifiedPrimaryKeysEnabled = options.FullyQualifiedPrimaryKeysEnabled;
-        Suffix = options.Suffix;
+        if (FullyQualifiedPrimaryKeysEnabled.HasValue)
+            opt.UseFullyQualifiedPrimaryKeys(FullyQualifiedPrimaryKeysEnabled.Value);
+            
+        if (!string.IsNullOrEmpty(Suffix))
+            opt.RemoveEntitySuffixFromTableName(Suffix);
     }
-
+    
+    internal void CopyFrom(RelationalDataModelConventionOptions opt)
+    {
+        if (opt.EntityAuditingEnabled.HasValue)
+            EnableEntityAuditing(opt.EntityAuditingEnabled.Value);
+            
+        if (opt.NamingCase.HasValue)
+        {
+            UseNamingCase(opt.NamingCase.Value);
+        }
+        
+        if (opt.FullyQualifiedPrimaryKeysEnabled.HasValue)
+            UseFullyQualifiedPrimaryKeys(opt.FullyQualifiedPrimaryKeysEnabled.Value);
+            
+        if (!string.IsNullOrEmpty(opt.Suffix))
+            RemoveEntitySuffixFromTableName(opt.Suffix);
+    }
+    
     public RelationalDataModelConventionOptions UseFullyQualifiedPrimaryKeys(bool enabled = true)
     {
         FullyQualifiedPrimaryKeysEnabled = enabled;
+        return this;
+    }
+    
+    public RelationalDataModelConventionOptions UseNamingCase(eQuantic.Core.Persistence.Options.NamingCase namingCase)
+    {
+        NamingCase = namingCase;
         return this;
     }
     

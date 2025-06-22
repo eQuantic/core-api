@@ -12,17 +12,25 @@ public static class ModelBuilderExtensions
         Action<SqlServerDataModelConventionOptions>? configureOptions = null)
     {
         var options = new SqlServerDataModelConventionOptions();
+        configureOptions?.Invoke(options);
         
         modelBuilder.ApplyRelationalDataModelConventions(opt =>
         {
-            opt.UsePascalCase();
-            opt.UseFullyQualifiedPrimaryKeys();
-
-            options = new SqlServerDataModelConventionOptions(opt);
+            options.CopyTo(opt);
             
-            configureOptions?.Invoke(options);
+            // Set default options if not provided
+            if(!options.NamingCase.HasValue)
+                opt.UsePascalCase();
+            
+            if (!options.FullyQualifiedPrimaryKeysEnabled.HasValue)
+                opt.UseFullyQualifiedPrimaryKeys();
+            
+            if (!options.EntityAuditingEnabled.HasValue)
+                opt.EnableEntityAuditing();
+            
+            options.CopyFrom(opt);
         });
-
+        
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
             var clrType = entityType.ClrType;

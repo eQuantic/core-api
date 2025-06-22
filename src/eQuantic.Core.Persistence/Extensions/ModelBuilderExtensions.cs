@@ -19,18 +19,18 @@ public static class ModelBuilderExtensions
         
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
-            ConfigureEntityAuditing(entityType, options);
+            ConfigureEntityAuditing(modelBuilder, entityType, options);
             
             // IEntityOwned - CreatedById (required for non-generic, nullable for generic)
-            ConfigureUserAuditProperty<IEntityOwned>(entityType, nameof(IEntityOwned.CreatedById), isRequired: true);
+            ConfigureUserAuditProperty(modelBuilder, entityType, typeof(IEntityOwned<>), nameof(IEntityOwned.CreatedById), isRequired: true);
             ConfigureUserAuditProperty(entityType, typeof(IEntityOwned<>), nameof(IEntityOwned.CreatedById), isRequired: true);
     
             // IEntityTrack - UpdatedById (nullable)
-            ConfigureUserAuditProperty<IEntityTrack>(entityType, nameof(IEntityTrack.UpdatedById), isRequired: false);
+            ConfigureUserAuditProperty(modelBuilder, entityType, typeof(IEntityTrack<>), nameof(IEntityTrack.UpdatedById), isRequired: false);
             ConfigureUserAuditProperty(entityType, typeof(IEntityTrack<>), nameof(IEntityTrack.UpdatedById), isRequired: false);
     
             // IEntityHistory - DeletedById (nullable)
-            ConfigureUserAuditProperty<IEntityHistory>(entityType, nameof(IEntityHistory.DeletedById), isRequired: false);
+            ConfigureUserAuditProperty(modelBuilder, entityType, typeof(IEntityHistory<>), nameof(IEntityHistory.DeletedById), isRequired: false);
             ConfigureUserAuditProperty(entityType, typeof(IEntityHistory<>), nameof(IEntityHistory.DeletedById), isRequired: false);
 
         }
@@ -38,7 +38,7 @@ public static class ModelBuilderExtensions
         return modelBuilder;
     }
     
-    private static void ConfigureEntityAuditing(IMutableEntityType entityType, DataModelConventionOptions options)
+    private static void ConfigureEntityAuditing(ModelBuilder modelBuilder, IMutableEntityType entityType, DataModelConventionOptions options)
     {
         var clrType = entityType.ClrType;
         
@@ -46,7 +46,13 @@ public static class ModelBuilderExtensions
         if (typeof(IEntityTimeMark).IsAssignableFrom(clrType))
         {
             var createdAtProperty = entityType.FindProperty(nameof(IEntityTimeMark.CreatedAt));
-            if (createdAtProperty != null)
+            if (createdAtProperty == null)
+            {
+                modelBuilder.Entity(clrType)
+                    .Property<DateTime>(nameof(IEntityTimeMark.CreatedAt))
+                    .IsRequired();
+            }
+            else
             {
                 createdAtProperty.IsNullable = false;
             }
@@ -56,7 +62,13 @@ public static class ModelBuilderExtensions
         if (typeof(IEntityTimeTrack).IsAssignableFrom(clrType))
         {
             var updatedAtProperty = entityType.FindProperty(nameof(IEntityTimeTrack.UpdatedAt));
-            if (updatedAtProperty != null)
+            if (updatedAtProperty == null)
+            {
+                modelBuilder.Entity(clrType)
+                    .Property<DateTime?>(nameof(IEntityTimeTrack.UpdatedAt))
+                    .IsRequired(false);
+            }
+            else
             {
                 updatedAtProperty.IsNullable = true;
             }
@@ -66,23 +78,42 @@ public static class ModelBuilderExtensions
         if (typeof(IEntityTimeEnded).IsAssignableFrom(clrType))
         {
             var deletedAtProperty = entityType.FindProperty(nameof(IEntityTimeEnded.DeletedAt));
-            if (deletedAtProperty != null)
+            if (deletedAtProperty == null)
+            {
+                modelBuilder.Entity(clrType)
+                    .Property<DateTime?>(nameof(IEntityTimeEnded.DeletedAt))
+                    .IsRequired(false);
+            }
+            else
             {
                 deletedAtProperty.IsNullable = true;
             }
         }
     }
     
-    private static void ConfigureUserAuditProperty<TInterface>(IMutableEntityType entityType, string propertyName, bool isRequired)
+    private static void ConfigureUserAuditProperty(ModelBuilder modelBuilder, IMutableEntityType entityType, Type genericInterfaceType, string propertyName, bool isRequired)
     {
         var clrType = entityType.ClrType;
-        if (typeof(TInterface).IsAssignableFrom(clrType))
+        var interfaces = clrType.GetInterfaces();
+        var hasGenericInterface = interfaces.Any(i => 
+            i.IsGenericType && 
+            i.GetGenericTypeDefinition() == genericInterfaceType);
+        
+        if (!hasGenericInterface) return;
+        
+        var property = entityType.FindProperty(propertyName);
+        if (property == null)
         {
-            var property = entityType.FindProperty(propertyName);
-            if (property != null)
-            {
-                property.IsNullable = !isRequired;
-            }
+            var propertyInfo = clrType.GetProperty(propertyName);
+            if (propertyInfo == null) return;
+                
+            modelBuilder.Entity(clrType)
+                .Property(propertyInfo.PropertyType, propertyName)
+                .IsRequired(isRequired);
+        }
+        else
+        {
+            property.IsNullable = !isRequired;
         }
     }
 

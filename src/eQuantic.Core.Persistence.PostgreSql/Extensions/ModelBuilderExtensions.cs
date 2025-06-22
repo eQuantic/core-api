@@ -12,16 +12,24 @@ public static class ModelBuilderExtensions
         Action<PostgreSqlDataModelConventionOptions>? configureOptions = null)
     {
         var options = new PostgreSqlDataModelConventionOptions();
-        
+        configureOptions?.Invoke(options);
         modelBuilder.ApplyRelationalDataModelConventions(opt =>
         {
-            opt.UseSnakeCase();
-            opt.UseFullyQualifiedPrimaryKeys();
-
-            options = new PostgreSqlDataModelConventionOptions(opt);
+            options.CopyTo(opt);
             
-            configureOptions?.Invoke(options);
+            // Set default options if not provided
+            if(!options.NamingCase.HasValue)
+                opt.UseSnakeCase();
+            
+            if (!options.FullyQualifiedPrimaryKeysEnabled.HasValue)
+                opt.UseFullyQualifiedPrimaryKeys();
+            
+            if (!options.EntityAuditingEnabled.HasValue)
+                opt.EnableEntityAuditing();
+            
+            options.CopyFrom(opt);
         });
+        
 
         foreach (var entityType in modelBuilder.Model.GetEntityTypes())
         {
