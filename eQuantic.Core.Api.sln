@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eQuantic.Core.Persistence.M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eQuantic.Core.Persistence.PostgreSql", "src\eQuantic.Core.Persistence.PostgreSql\eQuantic.Core.Persistence.PostgreSql.csproj", "{2545850F-36EC-4D00-98F1-D4B15646E48D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eQuantic.Core.Persistence.Relational", "src\eQuantic.Core.Persistence.Relational\eQuantic.Core.Persistence.Relational.csproj", "{6D1F35F7-480C-4214-ABCC-5D41FAC500FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -125,6 +127,10 @@ Global
 		{2545850F-36EC-4D00-98F1-D4B15646E48D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2545850F-36EC-4D00-98F1-D4B15646E48D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2545850F-36EC-4D00-98F1-D4B15646E48D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6D1F35F7-480C-4214-ABCC-5D41FAC500FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6D1F35F7-480C-4214-ABCC-5D41FAC500FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6D1F35F7-480C-4214-ABCC-5D41FAC500FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6D1F35F7-480C-4214-ABCC-5D41FAC500FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{3080CE4F-8079-4FB6-B164-46A5CE130E87} = {ECE438C5-64A5-4F54-BCC3-496F2C131090}
@@ -148,5 +154,6 @@ Global
 		{25F3AD6A-7FE5-4C7C-91B9-F90791DB34A3} = {8EE836BD-C317-4C26-AE01-E0539FFB2138}
 		{4784989F-CD6C-402A-B69F-00A4E6043BD0} = {FA57A1E6-2DBB-410C-90C4-96085E3462E2}
 		{2545850F-36EC-4D00-98F1-D4B15646E48D} = {8EE836BD-C317-4C26-AE01-E0539FFB2138}
+		{6D1F35F7-480C-4214-ABCC-5D41FAC500FD} = {8EE836BD-C317-4C26-AE01-E0539FFB2138}
 	EndGlobalSection
 EndGlobal

@@ -1,3 +1,6 @@
+using eQuantic.Core.Persistence.Extensions;
+using eQuantic.Core.Persistence.MongoDb.Options;
+using eQuantic.Core.Persistence.Options;
 using Humanizer;
 using Microsoft.EntityFrameworkCore;
 using MongoDB.EntityFrameworkCore.Extensions;
@@ -6,20 +9,61 @@ namespace eQuantic.Core.Persistence.MongoDb.Extensions;
 
 public static class ModelBuilderExtensions
 {
-    public static void UseCamelCase(this ModelBuilder modelBuilder, string entitySuffix = "Data")
+    public static ModelBuilder ApplyMongoDbDataModelConventions(
+        this ModelBuilder modelBuilder,
+        Action<MongoDbDataModelConventionOptions>? configureOptions = null)
     {
-        foreach(var entity in modelBuilder.Model.GetEntityTypes())
+        var options = new MongoDbDataModelConventionOptions();
+        
+        modelBuilder.ApplyDataModelConventions(opt =>
         {
-            var entityName = entity.Name.TrimEnd(entitySuffix.ToCharArray());
+            opt.EnableEntityAuditing();
             
-            // Replace table names
-            entity.SetCollectionName(entityName.Pluralize().Camelize());
-
-            // Replace column names            
-            foreach(var property in entity.GetProperties())
+            options = new MongoDbDataModelConventionOptions(opt);
+            configureOptions?.Invoke(options);
+        });
+        
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            var clrType = entityType.ClrType;
+            
+            var entityName = clrType.Name;
+            if (!string.IsNullOrEmpty(options.Suffix) && clrType.Name.EndsWith(options.Suffix))
             {
-                property.SetElementName(property.Name.Camelize());
+                entityName = entityName[..^options.Suffix.Length];
+                var tableName = GetCollectionName(entityName, options.NamingCase);
+                entityType.SetCollectionName(tableName);
+            }
+            
+            foreach(var property in entityType.GetProperties())
+            {
+                var elementName = GetElementName(property.Name, options.NamingCase);
+                property.SetElementName(elementName);
             }
         }
+        
+        return modelBuilder;
+    }
+    
+    private static string GetCollectionName(string input, NamingCase? namingCase)
+    {
+        return namingCase switch
+        {
+            NamingCase.PascalCase => input.Pluralize(),
+            NamingCase.CamelCase => input.Pluralize().Camelize(),
+            NamingCase.SnakeCase => input.Pluralize().Underscore(),
+            _ => input.Pluralize()
+        };
+    }
+    
+    private static string GetElementName(string input, NamingCase? namingCase)
+    {
+        return namingCase switch
+        {
+            NamingCase.PascalCase => input,
+            NamingCase.CamelCase => input.Camelize(),
+            NamingCase.SnakeCase => input.Underscore(),
+            _ => input
+        };
     }
 }

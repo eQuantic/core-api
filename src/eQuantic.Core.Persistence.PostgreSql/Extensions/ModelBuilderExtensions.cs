@@ -1,35 +1,40 @@
-using eQuantic.Core.DataModel;
-using Humanizer;
+﻿using eQuantic.Core.Domain.Entities;
+using eQuantic.Core.Persistence.PostgreSql.Options;
+using eQuantic.Core.Persistence.Relational.Extensions;
 using Microsoft.EntityFrameworkCore;
 
 namespace eQuantic.Core.Persistence.PostgreSql.Extensions;
 
 public static class ModelBuilderExtensions
 {
-    public static void UseCamelCase(this ModelBuilder modelBuilder, string entitySuffix = "Data")
+    public static ModelBuilder ApplyPostgreSqlDataModelConventions(
+        this ModelBuilder modelBuilder,
+        Action<PostgreSqlDataModelConventionOptions>? configureOptions = null)
     {
-        foreach(var entity in modelBuilder.Model.GetEntityTypes())
+        var options = new PostgreSqlDataModelConventionOptions();
+        
+        modelBuilder.ApplyRelationalDataModelConventions(opt =>
         {
-            var entityName = entity.Name.TrimEnd(entitySuffix.ToCharArray());
+            opt.UseSnakeCase();
+            opt.UseFullyQualifiedPrimaryKeys();
+
+            options = new PostgreSqlDataModelConventionOptions(opt);
             
-            // Replace table names
-            entity.SetTableName(entityName.Pluralize().Camelize());
+            configureOptions?.Invoke(options);
+        });
 
-            // Replace column names            
-            foreach(var property in entity.GetProperties())
-            {
-                property.SetColumnName(property.Name.Camelize());
-            }
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            var clrType = entityType.ClrType;
 
-            foreach(var key in entity.GetKeys())
-            {
-                var name = key.GetName();
-                if (name == nameof(EntityDataBase.Id))
-                {
-                    name = entityName + name;
-                }
-                key.SetName(name.Camelize());
-            }
+            if(!options.EntityAuditingEnabled.HasValue || !options.EntityAuditingEnabled.Value) continue;
+            
+            if (!typeof(IEntityTimeMark).IsAssignableFrom(clrType)) continue;
+            
+            var createdAtProperty = entityType.FindProperty(nameof(IEntityTimeMark.CreatedAt));
+            createdAtProperty?.SetDefaultValueSql("NOW() AT TIME ZONE 'UTC'");
         }
+
+        return modelBuilder;
     }
 }

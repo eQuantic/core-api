@@ -6,15 +6,15 @@
         <Authors>eQuantic Systems</Authors>
         <RootNamespace>eQuantic.Core.Api</RootNamespace>
         <AssemblyTitle>eQuantic.Core.Api</AssemblyTitle>
-        <AssemblyVersion>1.8.2.0</AssemblyVersion>
-        <FileVersion>1.8.2.0</FileVersion>
-        <Version>1.8.2.0</Version>
+        <AssemblyVersion>1.9.0.0</AssemblyVersion>
+        <FileVersion>1.9.0.0</FileVersion>
+        <Version>1.9.0.0</Version>
         <TargetFrameworks>net6.0;net8.0;net9.0</TargetFrameworks>
 
         <PackageId>eQuantic.Core.Api</PackageId>
         <PackageTags>eQuantic;Core;API;Library</PackageTags>
         <PackageReleaseNotes>Common API implementations</PackageReleaseNotes>
-        <PackageProjectUrl>https://github.com/eQuantic/core-api-crud</PackageProjectUrl>
+        <PackageProjectUrl>https://github.com/eQuantic/core-api</PackageProjectUrl>
         <PackageOutputPath>../artifacts/</PackageOutputPath>
         <PackageIcon>Icon.png</PackageIcon>
         <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -28,13 +28,17 @@
         <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
         <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
 
-        <RepositoryUrl>https://github.com/eQuantic/core-api-crud</RepositoryUrl>
+        <RepositoryUrl>https://github.com/eQuantic/core-api</RepositoryUrl>
         <RepositoryType>Git</RepositoryType>
         <LangVersion>latest</LangVersion>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
 
         <OpenApiGenerateDocuments>false</OpenApiGenerateDocuments>
+        <PublishRepositoryUrl>true</PublishRepositoryUrl>
+        <EmbedUntrackedSources>true</EmbedUntrackedSources>
+        <IncludeSymbols>true</IncludeSymbols>
+        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
     <ItemGroup>
@@ -45,6 +49,10 @@
     
     <ItemGroup>
         <PackageReference Include="eQuantic.Core.Mvc" Version="2.0.7" />
+        <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
     </ItemGroup>
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net6.0' ">

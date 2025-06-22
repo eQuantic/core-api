@@ -1,4 +1,7 @@
 using eQuantic.Core.DataModel;
+using eQuantic.Core.Domain.Entities;
+using eQuantic.Core.Persistence.MySql.Options;
+using eQuantic.Core.Persistence.Relational.Extensions;
 using Humanizer;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,30 +9,34 @@ namespace eQuantic.Core.Persistence.MySql.Extensions;
 
 public static class ModelBuilderExtensions
 {
-    public static void UseCamelCase(this ModelBuilder modelBuilder, string entitySuffix = "Data")
+    public static ModelBuilder ApplyMySqlDataModelConventions(
+        this ModelBuilder modelBuilder,
+        Action<MySqlDataModelConventionOptions>? configureOptions = null)
     {
-        foreach(var entity in modelBuilder.Model.GetEntityTypes())
+        var options = new MySqlDataModelConventionOptions();
+        
+        modelBuilder.ApplyRelationalDataModelConventions(opt =>
         {
-            var entityName = entity.Name.TrimEnd(entitySuffix.ToCharArray());
+            opt.UseSnakeCase();
+            opt.UseFullyQualifiedPrimaryKeys();
+
+            options = new MySqlDataModelConventionOptions(opt);
             
-            // Replace table names
-            entity.SetTableName(entityName.Pluralize().Camelize());
+            configureOptions?.Invoke(options);
+        });
 
-            // Replace column names            
-            foreach(var property in entity.GetProperties())
-            {
-                property.SetColumnName(property.Name.Camelize());
-            }
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            var clrType = entityType.ClrType;
 
-            foreach(var key in entity.GetKeys())
-            {
-                var name = key.GetName();
-                if (name == nameof(EntityDataBase.Id))
-                {
-                    name = entityName + name;
-                }
-                key.SetName(name.Camelize());
-            }
+            if(!options.EntityAuditingEnabled.HasValue || !options.EntityAuditingEnabled.Value) continue;
+            
+            if (!typeof(IEntityTimeMark).IsAssignableFrom(clrType)) continue;
+            
+            var createdAtProperty = entityType.FindProperty(nameof(IEntityTimeMark.CreatedAt));
+            createdAtProperty?.SetDefaultValueSql("UTC_TIMESTAMP()");
         }
+
+        return modelBuilder;
     }
 }

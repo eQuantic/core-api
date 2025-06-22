@@ -15,23 +15,24 @@ public static class EntityTypeBuilderExtensions
     /// <param name="assembly"></param>
     /// <typeparam name="T"></typeparam>
     /// <returns></returns>
-    public static EntityTypeBuilder<T> HasJsonData<T>(this EntityTypeBuilder<T> builder, string resourceName, Assembly assembly) 
+    public static EntityTypeBuilder<T> HasJsonData<T>(this EntityTypeBuilder<T> builder, string resourceName,
+        Assembly assembly)
         where T : class
     {
         var entities = ReadJsonResources<T>(resourceName, assembly);
-        if(entities != null)
+        if (entities != null)
             builder.HasData(entities);
         return builder;
     }
-    
+
     private static T[]? ReadJsonResources<T>(string resourceName, Assembly assembly)
     {
         var prefix = assembly.GetName().Name;
         using var stream = assembly.GetManifestResourceStream($"{prefix}.{resourceName}");
-        if (stream == null) return default;
+        if (stream == null) return null;
         using var reader = new StreamReader(stream);
         var jsonString = reader.ReadToEnd();
-        if (string.IsNullOrEmpty(jsonString)) return default;
+        if (string.IsNullOrEmpty(jsonString)) return null;
         return JsonSerializer.Deserialize<T[]>(jsonString, new JsonSerializerOptions
         {
             Converters = { new JsonStringEnumConverter() },
