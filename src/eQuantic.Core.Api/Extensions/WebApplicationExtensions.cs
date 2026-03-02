@@ -41,6 +41,7 @@ public static class WebApplicationExtensions
             if(hasSignIn)
                 c.InjectJavascript("/swagger/swagger.js");
         });
+        
         return app;
     }
 

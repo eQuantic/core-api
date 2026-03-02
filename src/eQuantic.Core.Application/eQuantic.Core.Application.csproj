@@ -6,10 +6,10 @@
         <Authors>eQuantic Systems</Authors>
         <RootNamespace>eQuantic.Core.Application</RootNamespace>
         <AssemblyTitle>eQuantic.Core.Application</AssemblyTitle>
-        <AssemblyVersion>1.9.2.0</AssemblyVersion>
-        <FileVersion>1.9.2.0</FileVersion>
-        <Version>1.9.2.0</Version>
-        <TargetFrameworks>net6.0;net8.0;net9.0</TargetFrameworks>
+        <AssemblyVersion>1.9.3.0</AssemblyVersion>
+        <FileVersion>1.9.3.0</FileVersion>
+        <Version>1.9.3.0</Version>
+        <TargetFrameworks>net6.0;net8.0;net9.0;net10.0</TargetFrameworks>
         
         <PackageId>eQuantic.Core.Application</PackageId>
         <PackageTags>eQuantic;Core;Application;Library</PackageTags>
@@ -50,6 +50,10 @@
 
     <ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
         <PackageReference Include="Lamar" Version="14.0.1" />
+    </ItemGroup>
+
+    <ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
+        <PackageReference Include="Lamar" Version="15.0.1" />
     </ItemGroup>
     
     <ItemGroup>

@@ -1,4 +1,8 @@
+#if NET10_0_OR_GREATER
+using Microsoft.OpenApi;
+#else
 using Microsoft.OpenApi.Models;
+#endif
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace eQuantic.Core.Api.Swagger;
@@ -9,6 +13,19 @@ namespace eQuantic.Core.Api.Swagger;
 /// <seealso cref="ISchemaFilter"/>
 public class ExpressionSchemaFilter<TColumn> : ISchemaFilter
 {
+    
+#if NET10_0_OR_GREATER
+    public void Apply(IOpenApiSchema schema, SchemaFilterContext context)
+    {
+        if(context.Type != typeof(TColumn))
+            return;
+        
+        schema = new OpenApiSchema
+        {
+            Type = JsonSchemaType.String,
+        };
+    }
+#else
     /// <summary>
     /// Applies the schema
     /// </summary>
@@ -21,4 +38,5 @@ public class ExpressionSchemaFilter<TColumn> : ISchemaFilter
 
         schema.Type = "string";
     }
+#endif
 }

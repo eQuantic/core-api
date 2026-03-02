@@ -1,4 +1,8 @@
+#if NET10_0_OR_GREATER
+using Microsoft.OpenApi;
+#else
 using Microsoft.OpenApi.Models;
+#endif
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace eQuantic.Core.Api.Swagger;
@@ -22,6 +26,7 @@ public class ExpressionOperationFilter<TColumn> : IOperationFilter
     {
         _parameterDescriptionSuffix = parameterDescriptionSuffix;
     }
+
     /// <summary>
     /// Applies the operation
     /// </summary>
@@ -47,16 +52,45 @@ public class ExpressionOperationFilter<TColumn> : IOperationFilter
             return;
         }
 
+#if NET10_0_OR_GREATER
+        foreach (var parameter in parameters)
+        {
+            var param = operation.Parameters?.FirstOrDefault(o =>
+                o.Name?.Equals(parameter, StringComparison.InvariantCultureIgnoreCase) == true);
+
+            if (param == null) continue;
+
+            var index = operation.Parameters?.IndexOf(param);
+
+            if (index == null)
+                continue;
+
+            var openApiParameter = new OpenApiParameter
+            {
+                Name = param.Name,
+                In = param.In,
+                Description =
+                    $"{param.Description}{(!string.IsNullOrEmpty(_parameterDescriptionSuffix) ? $" -- {_parameterDescriptionSuffix}" : "")}",
+                Schema = new OpenApiSchema
+                {
+                    Type = JsonSchemaType.String,
+                }
+            };
+            
+            operation.Parameters?.RemoveAt(index.Value);
+            operation.Parameters?.Insert(index.Value, openApiParameter);
+        }
+#else
         var openApiParameters = parameters
             .Select(parameter =>
                 operation.Parameters.FirstOrDefault(o =>
                     o.Name.Equals(parameter, StringComparison.InvariantCultureIgnoreCase)))
             .Where(openApiParameter => openApiParameter != null);
-        
         foreach (var openApiParameter in openApiParameters)
         {
             openApiParameter!.Description = $"{openApiParameter.Description}{(!string.IsNullOrEmpty(_parameterDescriptionSuffix) ? $" -- {_parameterDescriptionSuffix}" : "")}";
             openApiParameter.Schema.Type = "string";
         }
+#endif
     }
 }

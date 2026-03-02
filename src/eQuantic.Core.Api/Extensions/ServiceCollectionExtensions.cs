@@ -5,7 +5,11 @@ using eQuantic.Core.Api.Swagger;
 using eQuantic.Linq.Filter;
 using eQuantic.Linq.Sorter;
 using Microsoft.Extensions.DependencyInjection;
+#if NET10_0_OR_GREATER
+using Microsoft.OpenApi;
+#else
 using Microsoft.OpenApi.Models;
+#endif
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace eQuantic.Core.Api.Extensions;
@@ -51,6 +55,8 @@ public static class ServiceCollectionExtensions
                 Enter 'Bearer' [space] and then your token in the text input below.<br />
                 Example: ""Bearer 12345abcdef""",
             });
+#if NET10_0_OR_GREATER
+#else
             c.AddSecurityRequirement(new OpenApiSecurityRequirement
             {
                 {
@@ -65,7 +71,7 @@ public static class ServiceCollectionExtensions
                     Array.Empty<string>()
                 }
             });
-
+#endif
             
             
             c.MapType<IFiltering[]>(() => new OpenApiSchema());
