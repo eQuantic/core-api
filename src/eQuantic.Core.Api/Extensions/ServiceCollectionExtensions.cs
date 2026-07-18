@@ -1,15 +1,10 @@
 using eQuantic.Core.Api.Middlewares;
 using eQuantic.Core.Api.Options;
-using eQuantic.Core.Api.Resources;
 using eQuantic.Core.Api.Swagger;
-using eQuantic.Linq.Filter;
-using eQuantic.Linq.Sorter;
+using eQuantic.Linq.Web;
+using eQuantic.Linq.Web.Swashbuckle;
 using Microsoft.Extensions.DependencyInjection;
-#if NET10_0_OR_GREATER
 using Microsoft.OpenApi;
-#else
-using Microsoft.OpenApi.Models;
-#endif
 using Swashbuckle.AspNetCore.SwaggerGen;
 
 namespace eQuantic.Core.Api.Extensions;
@@ -27,7 +22,7 @@ public static class ServiceCollectionExtensions
     /// <param name="swaggerGenOptions">The swagger gen options</param>
     /// <returns>The registry</returns>
     public static IServiceCollection AddApiDocumentation(
-        this IServiceCollection services, 
+        this IServiceCollection services,
         Action<DocumentationOptions>? options = null,
         Action<SwaggerGenOptions>? swaggerGenOptions = null)
     {
@@ -39,10 +34,10 @@ public static class ServiceCollectionExtensions
         {
             c.SwaggerDoc("v1", new OpenApiInfo { Title = docOptions.Title, Version = "v1" });
             c.DescribeAllParametersInCamelCase();
-            
+
             if(!string.IsNullOrEmpty(docOptions.XmlCommentsFile))
                 c.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, docOptions.XmlCommentsFile));
-            
+
             c.EnableAnnotations();
             c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
@@ -55,44 +50,20 @@ public static class ServiceCollectionExtensions
                 Enter 'Bearer' [space] and then your token in the text input below.<br />
                 Example: ""Bearer 12345abcdef""",
             });
-#if NET10_0_OR_GREATER
-#else
-            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            c.AddSecurityRequirement(document => new OpenApiSecurityRequirement
             {
-                {
-                    new OpenApiSecurityScheme
-                    {
-                        Reference = new OpenApiReference
-                        {
-                            Type = ReferenceType.SecurityScheme,
-                            Id = "Bearer"
-                        }
-                    },
-                    Array.Empty<string>()
-                }
+                [new OpenApiSecuritySchemeReference("Bearer", document)] = new List<string>()
             });
-#endif
-            
-            
-            c.MapType<IFiltering[]>(() => new OpenApiSchema());
-            c.MapType<ISorting[]>(() => new OpenApiSchema());
-            c.AddFilteringOperationFilter<IFiltering[]>();
-            c.OperationFilter<ExpressionOperationFilter<ISorting[]>>(ApiResource.SortingDescription);
-            c.SchemaFilter<ExpressionSchemaFilter<IFiltering[]>>();
-            c.SchemaFilter<ExpressionSchemaFilter<ISorting[]>>();
+
+            // eQuantic.Linq v3 query documentation: EntityQuery<T>/EntityQueryModel<T> endpoints
+            // and PagedListRequest<TEntity> envelopes (filterBy/orderBy keys).
+            var queryOptions = new QueryStringOptions { FilterKey = "filterBy", OrderByKey = "orderBy" };
+            c.AddEntityQueryDocumentation(queryOptions);
+            c.OperationFilter<PagedListRequestOperationFilter>(queryOptions);
 
             swaggerGenOptions?.Invoke(c);
         });
         return services;
-    }
-
-    public static void AddFilteringOperationFilter<TFiltering>(this SwaggerGenOptions options) where TFiltering : IEnumerable<IFiltering>
-    {
-        var filteringDesc = string.Format(
-            ApiResource.FilteringDescription,
-            $"property:{string.Join("|", FilterOperatorValues.Values.Select(x => x.Value))}(value)",
-            $"{string.Join("|", CompositeOperatorValues.Values.Select(x => x.Value))}(property:eq(value1), property:eq(value2))");
-        options.OperationFilter<ExpressionOperationFilter<TFiltering>>(filteringDesc);
     }
 
     /// <summary>

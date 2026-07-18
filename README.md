@@ -2,6 +2,18 @@
 
 The **eQuantic Core API** provides all the implementation needed to publish standard APIs.
 
+## What's new in v2.0
+
+- **.NET 8 & .NET 10** (net6/net9 dropped — end of life).
+- **eQuantic.Linq v3**: `PagedListRequest<TEntity>` now binds `filterBy`/`orderBy` into typed,
+  serializable collections (`FilteringCollection<TEntity>` / `SortingCollection<TEntity>`) using
+  the [v3 query syntax](https://github.com/eQuantic/core-linq/blob/main/docs/query-string-syntax.md);
+  Swagger documents the filter grammar and the entity's real member paths automatically
+  (`eQuantic.Linq.Web.Swashbuckle`). The `eQuantic.Core.Mvc` binders are no longer needed.
+- `IWithReferenceId<TDataEntity, TKey>.GetReferenceFilter()` now returns a plain
+  `Expression<Func<TDataEntity, bool>>` (provider-agnostic) instead of the v2 `IFiltering`.
+- **Automated releases** with semantic-release (see [docs/releasing.md](docs/releasing.md)).
+
 To install **eQuantic.Core.Api**, run the following command in the [Package Manager Console](https://docs.nuget.org/docs/start-here/using-the-package-manager-console)
 ```dos
 Install-Package eQuantic.Core.Api

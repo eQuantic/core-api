@@ -19,12 +19,12 @@
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.4" />
-        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="8.1.4" />
+        <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
+        <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="10.2.3" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\eQuantic.Core.Api\eQuantic.Core.Api.csproj" />
-      <ProjectReference Include="..\eQuantic.Core.DataModel\eQuantic.Core.DataModel.csproj" />
+      <ProjectReference Include="..\..\src\eQuantic.Core.Api\eQuantic.Core.Api.csproj" />
+      <ProjectReference Include="..\..\src\eQuantic.Core.DataModel\eQuantic.Core.DataModel.csproj" />
     </ItemGroup>
 </Project>

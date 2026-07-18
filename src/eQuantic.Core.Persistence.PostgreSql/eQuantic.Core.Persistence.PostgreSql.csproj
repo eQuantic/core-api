@@ -2,42 +2,12 @@
 
     <PropertyGroup>
         <Description>eQuantic Persistence with PostgreSQL Library</Description>
-        <Copyright>2023</Copyright>
-        <Authors>eQuantic Systems</Authors>
         <RootNamespace>eQuantic.Core.Persistence.PostgreSql</RootNamespace>
-        <AssemblyTitle>eQuantic.Core.Persistence.PostgreSql</AssemblyTitle>
-        <AssemblyVersion>1.9.3.0</AssemblyVersion>
-        <FileVersion>1.9.3.0</FileVersion>
-        <Version>1.9.3.0</Version>
-        <TargetFrameworks>net8.0;net9.0;net10.0</TargetFrameworks>
 
-        <PackageId>eQuantic.Core.Persistence.PostgreSql</PackageId>
         <PackageTags>eQuantic;Core;Persistence;PostgreSQL;Library</PackageTags>
         <PackageReleaseNotes>Conventions for Persistence Layer with PostgreSQL</PackageReleaseNotes>
-        <PackageProjectUrl>https://github.com/eQuantic/core-api</PackageProjectUrl>
-        <PackageOutputPath>../artifacts/</PackageOutputPath>
-        <PackageLicenseFile>LICENSE</PackageLicenseFile>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
         <PackageIcon>Icon.png</PackageIcon>
 
-        <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
-        <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
-        <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
-        <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
-        <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
-        <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
-        <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-
-        <RepositoryUrl>https://github.com/eQuantic/core-api</RepositoryUrl>
-        <RepositoryType>Git</RepositoryType>
-        <LangVersion>latest</LangVersion>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-
-        <PublishRepositoryUrl>true</PublishRepositoryUrl>
-        <EmbedUntrackedSources>true</EmbedUntrackedSources>
-        <IncludeSymbols>true</IncludeSymbols>
-        <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     </PropertyGroup>
 
     <ItemGroup>
@@ -56,16 +26,7 @@
     <ItemGroup Condition=" '$(TargetFramework)' == 'net8.0' ">
         <PackageReference Include="eQuantic.Core.Data.EntityFramework.PostgreSql" Version="8.1.2" />
     </ItemGroup>
-    <ItemGroup Condition=" '$(TargetFramework)' == 'net9.0' ">
-        <PackageReference Include="eQuantic.Core.Data.EntityFramework.PostgreSql" Version="9.1.2" />
-    </ItemGroup>
     <ItemGroup Condition=" '$(TargetFramework)' == 'net10.0' ">
         <PackageReference Include="eQuantic.Core.Data.EntityFramework.PostgreSql" Version="10.0.2" />
-    </ItemGroup>
-    <ItemGroup>
-      <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
     </ItemGroup>
 </Project>

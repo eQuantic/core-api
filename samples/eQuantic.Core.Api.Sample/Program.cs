@@ -6,7 +6,7 @@ using eQuantic.Core.Api.Sample.Entities;
 using eQuantic.Core.Api.Sample.Services;
 using eQuantic.Core.Application;
 using eQuantic.Core.Data.EntityFramework.Repository.Extensions;
-using eQuantic.Core.Mvc.Extensions;
+using eQuantic.Linq.Web.AspNetCore;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -33,9 +33,9 @@ builder.Services
     {
         options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
         options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-    })
-    .AddFilterModelBinder()
-    .AddSortModelBinder();
+    });
+
+builder.Services.AddEntityQueryBinding();
 
 builder.Services
     .AddApiDocumentation(opt => opt.WithTitle("Example API"));
