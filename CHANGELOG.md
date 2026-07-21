@@ -1,5 +1,17 @@
 # Changelog
 
+## [3.0.0](https://github.com/eQuantic/core-api/compare/v2.1.0...v3.0.0) (2026-07-21)
+
+### ⚠ BREAKING CHANGES
+
+* repository resolution now uses the two-argument v5 contracts
+(IAsyncQueryableRepository<TEntity, TKey>); consumers on the three-argument v4
+form must drop the TUnitOfWork type argument.
+
+### Features
+
+* migrate to eQuantic.Core.Data v5 ([e58b42d](https://github.com/eQuantic/core-api/commit/e58b42d35d9b9f5ab072cd60e1c7fef67da217f0))
+
 ## [2.1.0](https://github.com/eQuantic/core-api/compare/v2.0.0...v2.1.0) (2026-07-18)
 
 ### Features
