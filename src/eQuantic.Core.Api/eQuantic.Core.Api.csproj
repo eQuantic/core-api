@@ -23,7 +23,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <PackageReference Include="eQuantic.Linq.Web.Swashbuckle" Version="3.1.0" />
+        <PackageReference Include="eQuantic.Linq.Web.Swashbuckle" Version="3.7.1" />
         <PackageReference Include="System.CodeDom" Version="10.0.3" PrivateAssets="all" />
         <PackageReference Include="Swashbuckle.AspNetCore" Version="10.2.3" />
         <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="10.2.3" />

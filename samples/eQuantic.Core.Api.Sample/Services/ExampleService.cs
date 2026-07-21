@@ -17,7 +17,7 @@ public class ExampleService : IExampleService
 {
     private readonly IMapperFactory _mapperFactory;
     private readonly ILogger<ExampleService> _logger;
-    private readonly IAsyncQueryableRepository<IQueryableUnitOfWork, ExampleData, int> _repository;
+    private readonly IAsyncQueryableRepository<ExampleData, int> _repository;
     
     public ExampleService(
         IApplicationContext<int> applicationContext,
@@ -27,7 +27,7 @@ public class ExampleService : IExampleService
     {
         _mapperFactory = mapperFactory;
         _logger = logger;
-        _repository = unitOfWork.GetAsyncQueryableRepository<IQueryableUnitOfWork, ExampleData, int>();
+        _repository = unitOfWork.GetAsyncQueryableRepository<ExampleData, int>();
     }
     
     public async Task<Example?> GetByIdAsync(int exampleId, CancellationToken cancellationToken = default)
