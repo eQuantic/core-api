@@ -1,5 +1,20 @@
 # Changelog
 
+## [4.0.0](https://github.com/eQuantic/core-api/compare/v3.0.0...v4.0.0) (2026-07-22)
+
+### ⚠ BREAKING CHANGES
+
+* **datamodel:** DataModel now owns IEntity/IEntity<TKey>. Consumers must
+upgrade eQuantic.Core.Data and eQuantic.Core.DataModel together — mixing this
+DataModel with eQuantic.Core.Data <= 5.8 (which still defines IEntity) yields a
+duplicate/ambiguous type (CS0433/CS0311). eQuantic.Core.Data 5.9 drops the
+definition and forwards the type. The Api.Sample references core-data 5.8
+directly and will bump to 5.9 as part of the coordinated upgrade.
+
+### Features
+
+* **datamodel:** own the IEntity contract and drop the dependency on eQuantic.Core.Data ([0edb843](https://github.com/eQuantic/core-api/commit/0edb843e601c4a7340ba77044f0dc2af0fdcd3e3))
+
 ## [3.0.0](https://github.com/eQuantic/core-api/compare/v2.1.0...v3.0.0) (2026-07-21)
 
 ### ⚠ BREAKING CHANGES
