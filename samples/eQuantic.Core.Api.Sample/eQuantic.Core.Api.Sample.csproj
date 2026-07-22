@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="eQuantic.Core.Data.EntityFramework.SqlServer" Version="8.2.0" />
+        <PackageReference Include="eQuantic.Core.Data.EntityFramework.SqlServer" Version="8.3.0" />
         <PackageReference Include="eQuantic.Mapper" Version="2.2.1" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.15" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.15">
