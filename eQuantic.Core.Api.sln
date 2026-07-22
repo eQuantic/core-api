@@ -63,10 +63,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eQuantic.Core.Persistence.R
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eQuantic.Core.Persistence.PostgreSql.Tests", "tests\eQuantic.Core.Persistence.PostgreSql.Tests\eQuantic.Core.Persistence.PostgreSql.Tests.csproj", "{57203FEE-D1B6-4C8A-A45A-BA0B263B01B5}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "samples", "samples", "{5D20AA90-6969-D8BD-9DCD-8634F4692FDA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eQuantic.Core.Api.Sample", "samples\eQuantic.Core.Api.Sample\eQuantic.Core.Api.Sample.csproj", "{CA9454DD-0DB5-499A-BC2A-00A06926DFF8}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -293,18 +289,6 @@ Global
 		{57203FEE-D1B6-4C8A-A45A-BA0B263B01B5}.Release|x64.Build.0 = Release|Any CPU
 		{57203FEE-D1B6-4C8A-A45A-BA0B263B01B5}.Release|x86.ActiveCfg = Release|Any CPU
 		{57203FEE-D1B6-4C8A-A45A-BA0B263B01B5}.Release|x86.Build.0 = Release|Any CPU
-		{CA9454DD-0DB5-499A-BC2A-00A06926DFF8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CA9454DD-0DB5-499A-BC2A-00A06926DFF8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CA9454DD-0DB5-499A-BC2A-00A06926DFF8}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{CA9454DD-0DB5-499A-BC2A-00A06926DFF8}.Debug|x64.Build.0 = Debug|Any CPU
-		{CA9454DD-0DB5-499A-BC2A-00A06926DFF8}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{CA9454DD-0DB5-499A-BC2A-00A06926DFF8}.Debug|x86.Build.0 = Debug|Any CPU
-		{CA9454DD-0DB5-499A-BC2A-00A06926DFF8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CA9454DD-0DB5-499A-BC2A-00A06926DFF8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CA9454DD-0DB5-499A-BC2A-00A06926DFF8}.Release|x64.ActiveCfg = Release|Any CPU
-		{CA9454DD-0DB5-499A-BC2A-00A06926DFF8}.Release|x64.Build.0 = Release|Any CPU
-		{CA9454DD-0DB5-499A-BC2A-00A06926DFF8}.Release|x86.ActiveCfg = Release|Any CPU
-		{CA9454DD-0DB5-499A-BC2A-00A06926DFF8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -334,6 +318,5 @@ Global
 		{E1820494-6D68-4FE8-BF4D-1063F8542937} = {C3BBD073-AE95-4FFA-86F8-971912BFE4E1}
 		{D65BEEF1-FC4E-4010-8BEA-6F307C6F602E} = {C3BBD073-AE95-4FFA-86F8-971912BFE4E1}
 		{57203FEE-D1B6-4C8A-A45A-BA0B263B01B5} = {C3BBD073-AE95-4FFA-86F8-971912BFE4E1}
-		{CA9454DD-0DB5-499A-BC2A-00A06926DFF8} = {5D20AA90-6969-D8BD-9DCD-8634F4692FDA}
 	EndGlobalSection
 EndGlobal
