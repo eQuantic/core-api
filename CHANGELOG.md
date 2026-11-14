@@ -1,5 +1,15 @@
 # Changelog
 
+## [5.0.0](https://github.com/eQuantic/core-api/compare/v4.0.0...v5.0.0) (2026-11-14)
+
+### ⚠ BREAKING CHANGES
+
+* core-api now depends on core-ddd 6.0, which crosses two majors: EntityBase<TKey> compares by identity instead of by reference (5.0), and the repositories come from eQuantic.Core.Data 7.0, which changes what some existing calls do, such as a duplicate key surfacing as DuplicateKeyException at commit (6.0). Applications get both through core-api.
+
+### Features
+
+* move to core-ddd 6.0 and publish through trusted publishing ([#4](https://github.com/eQuantic/core-api/issues/4)) ([c3cffcf](https://github.com/eQuantic/core-api/commit/c3cffcf1bcdbaae50661eb6e73a3d8cf35f96215))
+
 ## [4.0.0](https://github.com/eQuantic/core-api/compare/v3.0.0...v4.0.0) (2026-07-22)
 
 ### ⚠ BREAKING CHANGES
