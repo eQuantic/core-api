@@ -31,6 +31,14 @@ public sealed class GenericModule<T> : IEndpointModule
     public void MapEndpoints(IEndpointRouteBuilder endpoints) => endpoints.MapGet($"/generic/{typeof(T).Name}", () => "generic");
 }
 
+public sealed class Outer<T>
+{
+    public sealed class InnerModule : IEndpointModule
+    {
+        public void MapEndpoints(IEndpointRouteBuilder endpoints) => endpoints.MapGet($"/inner/{typeof(T).Name}", () => "inner");
+    }
+}
+
 public class EndpointModuleTests
 {
     [Test]

@@ -43,8 +43,9 @@ var app = builder.Build();
 app.MapModules();
 ```
 
-`AddEndpointModules` takes any number of assemblies, defaults to the entry assembly, skips abstract and open
-generic types, and registers nothing twice when it is called again.
+`AddEndpointModules` takes any number of assemblies, defaults to the entry assembly, skips abstract types and
+types with open generic parameters (a module nested in a generic class among them), and registers nothing twice
+when it is called again.
 
 ## What's new in v2.0
 

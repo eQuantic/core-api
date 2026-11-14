@@ -113,7 +113,7 @@ public static class ServiceCollectionExtensions
 
             foreach (var type in assembly.GetTypes())
             {
-                if (type is { IsClass: true, IsAbstract: false, IsGenericTypeDefinition: false }
+                if (type is { IsClass: true, IsAbstract: false, ContainsGenericParameters: false }
                     && typeof(IEndpointModule).IsAssignableFrom(type))
                 {
                     services.TryAddEnumerable(ServiceDescriptor.Transient(typeof(IEndpointModule), type));
