@@ -2,6 +2,51 @@
 
 The **eQuantic Core API** provides all the implementation needed to publish standard APIs.
 
+## What's new in v6.0
+
+- **No IoC container.** The package registers through `Microsoft.Extensions.DependencyInjection` only, and
+  no longer brings Lamar (nor JasperFx, Spectre.Console and Polly with it).
+- **`AddEndpointModules` takes an `IServiceCollection`**, not Lamar's `ServiceRegistry`:
+  `builder.Services.AddEndpointModules(typeof(Program).Assembly)`. See [Endpoint modules](#endpoint-modules).
+- **core-ddd 7.0**: `eQuantic.Core.Application` and `eQuantic.Core.Exceptions` 7.0.0.
+
+Upgrading from 5.x:
+
+- Replace `registry.AddEndpointModules(assembly)` on a `ServiceRegistry` with
+  `services.AddEndpointModules(assembly)` on the `IServiceCollection`. If you still use Lamar's container
+  for other reasons, reference `Lamar` yourself: it no longer comes through this package.
+- With no assembly given, modules are looked for in the **entry assembly**. 5.x scanned every assembly in
+  the application's directory, so pass the assemblies explicitly when your modules live elsewhere.
+- 5.x also registered every other concrete type of the scanned assemblies against its first interface, as
+  a side effect of Lamar's scan. 6.0 registers the endpoint modules only, so register any service that
+  relied on that yourself.
+
+## Endpoint modules
+
+An endpoint module maps one feature's minimal-API endpoints:
+
+```csharp
+public sealed class OrdersModule : IEndpointModule
+{
+    public void MapEndpoints(IEndpointRouteBuilder endpoints)
+    {
+        endpoints.MapGet("/v1/orders/{id}", GetById);
+    }
+}
+```
+
+Register the modules of an assembly, then map them all:
+
+```csharp
+builder.Services.AddEndpointModules(typeof(Program).Assembly); // every concrete IEndpointModule in it
+var app = builder.Build();
+app.MapModules();
+```
+
+`AddEndpointModules` takes any number of assemblies, defaults to the entry assembly, skips abstract types and
+types with open generic parameters (a module nested in a generic class among them), and registers nothing twice
+when it is called again.
+
 ## What's new in v2.0
 
 - **.NET 8 & .NET 10** (net6/net9 dropped — end of life).

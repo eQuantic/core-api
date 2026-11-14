@@ -1,9 +1,12 @@
+using System.Reflection;
 using eQuantic.Core.Api.Middlewares;
+using eQuantic.Core.Api.Modules;
 using eQuantic.Core.Api.Options;
 using eQuantic.Core.Api.Swagger;
 using eQuantic.Linq.Web;
 using eQuantic.Linq.Web.Swashbuckle;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
@@ -80,6 +83,44 @@ public static class ServiceCollectionExtensions
 
         services.AddSingleton(filterOptions);
         services.AddTransient<ExceptionMiddleware>();
+        return services;
+    }
+
+    /// <summary>
+    /// Registers every concrete <see cref="IEndpointModule"/> declared in the given assemblies, so that
+    /// <see cref="WebApplicationExtensions.MapModules"/> maps their endpoints. With no assembly given, it
+    /// looks in the entry assembly. Calling it again for the same assembly registers nothing twice.
+    /// </summary>
+    /// <param name="services">The service collection</param>
+    /// <param name="assemblies">The assemblies that declare the modules</param>
+    /// <returns>The service collection</returns>
+    /// <exception cref="InvalidOperationException">No assembly was given and the process has no entry assembly.</exception>
+    public static IServiceCollection AddEndpointModules(this IServiceCollection services, params Assembly[] assemblies)
+    {
+        ArgumentNullException.ThrowIfNull(assemblies);
+
+        if (assemblies.Length == 0)
+        {
+            var entry = Assembly.GetEntryAssembly()
+                ?? throw new InvalidOperationException(
+                    "There is no entry assembly to look for endpoint modules in. Pass the assemblies that declare them.");
+            assemblies = [entry];
+        }
+
+        foreach (var assembly in assemblies.Distinct())
+        {
+            ArgumentNullException.ThrowIfNull(assembly, nameof(assemblies));
+
+            foreach (var type in assembly.GetTypes())
+            {
+                if (type is { IsClass: true, IsAbstract: false, ContainsGenericParameters: false }
+                    && typeof(IEndpointModule).IsAssignableFrom(type))
+                {
+                    services.TryAddEnumerable(ServiceDescriptor.Transient(typeof(IEndpointModule), type));
+                }
+            }
+        }
+
         return services;
     }
 }
