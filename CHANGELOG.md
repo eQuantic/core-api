@@ -1,5 +1,15 @@
 # Changelog
 
+## [6.0.0](https://github.com/eQuantic/core-api/compare/v5.0.0...v6.0.0) (2026-11-15)
+
+### ⚠ BREAKING CHANGES
+
+* the ServiceRegistry overload of AddEndpointModules is gone, and Lamar no longer comes through this package. With no assembly given, modules are looked for in the entry assembly instead of every assembly in the application's directory, and other concrete types are no longer registered against their first interface as a side effect of the scan.
+
+### Features
+
+* endpoint modules on IServiceCollection, without Lamar, on core-ddd 7.0 ([#6](https://github.com/eQuantic/core-api/issues/6)) ([bfc7571](https://github.com/eQuantic/core-api/commit/bfc757144c620016611d0a31428b5c1185ad13b6))
+
 ## [5.0.0](https://github.com/eQuantic/core-api/compare/v4.0.0...v5.0.0) (2026-11-14)
 
 ### ⚠ BREAKING CHANGES
