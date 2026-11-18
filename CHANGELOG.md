@@ -1,5 +1,11 @@
 # Changelog
 
+## [6.2.1](https://github.com/eQuantic/core-api/compare/v6.2.0...v6.2.1) (2026-11-18)
+
+### Bug Fixes
+
+* **deps:** move to core-ddd 7.2.1 ([#12](https://github.com/eQuantic/core-api/issues/12)) ([31ba344](https://github.com/eQuantic/core-api/commit/31ba344ec6d2a1a6aa0c8b4288b05b2e4a21e7ce)), closes [#11](https://github.com/eQuantic/core-api/issues/11)
+
 ## [6.2.0](https://github.com/eQuantic/core-api/compare/v6.1.0...v6.2.0) (2026-11-18)
 
 ### Features
